@@ -57,6 +57,14 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           destination_dir: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || '.' }}
+          commit_message: ${{ github.event_name == 'pull_request' && format('Deploy PR #{0}', github.event.number) || 'Deploy to GitHub Pages' }}
+
+      - name: Debug deployment
+        run: |
+          echo "Event name: ${{ github.event_name }}"
+          echo "PR number: ${{ github.event.number }}"
+          echo "Destination dir: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || '.' }}"
+          echo "Deployment URL: ${{ steps.deployment.outputs.page_url }}"
 
       - name: Set preview URL
         id: preview
@@ -66,6 +74,7 @@ jobs:
           else
             echo "preview_url=https://how-to-faang-utcn.github.io/How-to-faang-Guide/" >> $GITHUB_OUTPUT
           fi
+          echo "Setting preview URL to: ${{ steps.preview.outputs.preview_url }}"
 
       - name: Comment PR
         if: github.event_name == 'pull_request'
@@ -78,5 +87,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: `🚀 Preview deployment is ready!\n\nYou can view your changes at: ${previewUrl}`
+              body: `🚀 Preview deployment is ready!\n\nYou can view your changes at: ${previewUrl}\n\nNote: It may take a few minutes for the deployment to be available.`
             });
