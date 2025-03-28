@@ -5,14 +5,13 @@
     "type": "module",
     "description": "A comprehensive guide for FAANG internships",
     "scripts": {
-        "copy-files": "cp -r guides public/ && cp src/index.html public/ && cp src/styles.css public/",
-        "dev": "tsc && node --loader ts-node/esm scripts/generate-manifest.ts && npm run copy-files && serve public",
         "build": "tsc && node --loader ts-node/esm scripts/generate-manifest.ts && npm run copy-files",
-        "type-check": "tsc --noEmit",
-        "start": "serve public"
+        "copy-files": "cp -r guides dist/ && cp src/index.html dist/ && cp src/styles.css dist/",
+        "dev": "npm run build && npx serve dist -l 3000",
+        "type-check": "tsc --noEmit"
     },
     "devDependencies": {
-        "@types/node": "^20.11.28",
+        "@types/node": "^20.28.0",
         "marked": "^12.0.1",
         "serve": "^14.2.1",
         "ts-node": "^10.9.2",
