@@ -34,22 +34,18 @@ jobs:
 
       - name: Prepare deployment files
         run: |
-          # Create a clean deployment directory
           rm -rf deploy
           mkdir -p deploy
 
-          # Copy only the necessary files
           cp -r guides deploy/
           cp src/index.html deploy/
           cp src/styles.css deploy/
           cp dist/app.js deploy/
 
-          # Copy utils directory if it exists
           if [ -d "dist/utils" ]; then
             cp -r dist/utils deploy/
           fi
 
-          # Create .nojekyll file
           touch deploy/.nojekyll
 
       - name: Debug deployment files
@@ -73,8 +69,11 @@ jobs:
         run: |
           echo "Checking gh-pages branch..."
           git fetch origin gh-pages
+          git stash
           git checkout gh-pages
           echo "Contents of gh-pages branch:"
           ls -la
           echo "Checking remote branches:"
           git branch -a
+          echo "Checking if gh-pages branch is up to date:"
+          git status
