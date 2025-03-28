@@ -58,17 +58,21 @@ jobs:
           publish_dir: ./dist
           destination_dir: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || '.' }}
 
-      - name: Debug deployment
+      - name: Set preview URL
+        id: preview
         run: |
-          echo "Deployment URL: ${{ steps.deployment.outputs.page_url }}"
-          echo "Destination dir: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || '.' }}"
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "preview_url=https://how-to-faang-utcn.github.io/How-to-faang-Guide/pr-${{ github.event.number }}/" >> $GITHUB_OUTPUT
+          else
+            echo "preview_url=https://how-to-faang-utcn.github.io/How-to-faang-Guide/" >> $GITHUB_OUTPUT
+          fi
 
       - name: Comment PR
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v6
         with:
           script: |
-            const previewUrl = '${{ steps.deployment.outputs.page_url }}';
+            const previewUrl = '${{ steps.preview.outputs.preview_url }}';
             console.log('Preview URL:', previewUrl);
             await github.rest.issues.createComment({
               owner: context.repo.owner,
