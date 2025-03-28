@@ -1,0 +1,24 @@
+{
+    "name": "faang-guide",
+    "private": true,
+    "version": "1.0.0",
+    "type": "module",
+    "description": "A comprehensive guide for FAANG internships",
+    "scripts": {
+        "copy-files": "cp -r guides public/ && cp src/index.html public/ && cp src/styles.css public/",
+        "dev": "tsc && node --loader ts-node/esm scripts/generate-manifest.ts && npm run copy-files && serve public",
+        "build": "tsc && node --loader ts-node/esm scripts/generate-manifest.ts && npm run copy-files",
+        "type-check": "tsc --noEmit",
+        "start": "serve public"
+    },
+    "devDependencies": {
+        "@types/node": "^20.11.28",
+        "marked": "^12.0.1",
+        "serve": "^14.2.1",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.4.2"
+    },
+    "dependencies": {
+        "marked": "^15.0.7"
+    }
+}
