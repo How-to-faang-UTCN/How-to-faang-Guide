@@ -5,19 +5,19 @@ on:
     branches:
       - master
   pull_request:
-    branches:
-      - staging
+    types: [opened, reopened, synchronize]
 
 permissions:
   contents: write
   pages: write
   id-token: write
+  pull-requests: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     environment:
-      name: github-pages
+      name: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || 'github-pages' }}
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v3
@@ -49,4 +49,17 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          destination_dir: ${{ github.event_name == 'pull_request' && 'staging' || '.' }}
+          destination_dir: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || '.' }}
+
+      - name: Comment PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const url = '${{ steps.deployment.outputs.page_url }}';
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.name,
+              body: `🚀 Preview deployment is ready!\n\nYou can view your changes at: ${url}`
+            });
