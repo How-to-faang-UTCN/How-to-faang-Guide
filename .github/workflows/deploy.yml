@@ -43,6 +43,13 @@ jobs:
           cp src/index.html dist/
           cp src/styles.css dist/
 
+      - name: Debug dist contents
+        run: |
+          echo "Contents of dist directory:"
+          ls -la dist/
+          echo "Contents of dist/guides directory:"
+          ls -la dist/guides/
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: peaceiris/actions-gh-pages@v3
@@ -51,17 +58,21 @@ jobs:
           publish_dir: ./dist
           destination_dir: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || '.' }}
 
+      - name: Debug deployment
+        run: |
+          echo "Deployment URL: ${{ steps.deployment.outputs.page_url }}"
+          echo "Destination dir: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || '.' }}"
+
       - name: Comment PR
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v6
-        env:
-          PREVIEW_URL: ${{ steps.deployment.outputs.page_url }}
         with:
           script: |
-            const url = process.env.PREVIEW_URL;
+            const previewUrl = '${{ steps.deployment.outputs.page_url }}';
+            console.log('Preview URL:', previewUrl);
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: `🚀 Preview deployment is ready!\n\nYou can view your changes at: ${url}`
+              body: `🚀 Preview deployment is ready!\n\nYou can view your changes at: ${previewUrl}`
             });
