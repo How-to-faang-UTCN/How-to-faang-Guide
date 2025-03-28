@@ -7,10 +7,13 @@ class MarkdownViewer {
     private tabsContainer: HTMLElement;
     private contentContainer: HTMLElement;
     private markdownFiles: string[] = [];
+    private basePath: string;
 
     constructor() {
         this.tabsContainer = document.getElementById('tabs')!;
         this.contentContainer = document.getElementById('content')!;
+        // Get the base path from the current URL
+        this.basePath = window.location.pathname.replace(/\/$/, '');
         this.init();
     }
 
@@ -27,7 +30,7 @@ class MarkdownViewer {
 
     private async detectMarkdownFiles() {
         try {
-            const response = await fetch('/guides/manifest.json');
+            const response = await fetch(`${this.basePath}/guides/manifest.json`);
             if (!response.ok) {
                 throw new Error('Failed to load manifest');
             }
@@ -56,7 +59,7 @@ class MarkdownViewer {
 
     private async loadContent(filename: string) {
         try {
-            const response = await fetch(`/guides/${filename}`);
+            const response = await fetch(`${this.basePath}/guides/${filename}`);
             if (!response.ok) {
                 throw new Error('Failed to load content');
             }
