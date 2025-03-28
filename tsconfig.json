@@ -7,8 +7,9 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "outDir": "./public",
-        "rootDir": "./src"
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "sourceMap": true
     },
     "include": [
         "src/**/*"

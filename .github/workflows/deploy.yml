@@ -39,7 +39,7 @@ jobs:
           cp -r guides dist/
           cp src/index.html dist/
           cp src/styles.css dist/
-          cp public/app.js dist/
+          cp dist/app.js dist/
           cp public/manifest.json dist/
 
       - name: Deploy to GitHub Pages
