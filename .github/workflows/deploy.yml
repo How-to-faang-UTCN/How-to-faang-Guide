@@ -34,41 +34,37 @@ jobs:
 
       - name: Prepare deployment files
         run: |
-          # Create a clean deployment directory
-          rm -rf deploy
-          mkdir -p deploy
+          # Create a clean directory directly for gh-pages
+          mkdir -p gh-pages-files
 
-          # Copy only the necessary files
-          cp -r guides deploy/
-          cp src/index.html deploy/
-          cp src/styles.css deploy/
-          cp dist/app.js deploy/
+          # Copy index.html to the root
+          cp src/index.html gh-pages-files/
+          cp src/styles.css gh-pages-files/
+          cp dist/app.js gh-pages-files/
+          cp -r guides gh-pages-files/
 
           # Copy utils directory if it exists
           if [ -d "dist/utils" ]; then
-            cp -r dist/utils deploy/
+            cp -r dist/utils gh-pages-files/
           fi
 
-          # Create .nojekyll file
-          touch deploy/.nojekyll
+          # Create .nojekyll file to disable Jekyll processing
+          touch gh-pages-files/.nojekyll
 
       - name: Debug deployment files
         run: |
-          echo "Contents of deploy directory:"
-          ls -la deploy/
-          echo "Contents of deploy/guides directory:"
-          ls -la deploy/guides/
+          echo "Contents of deployment directory:"
+          ls -la gh-pages-files/
+          echo "Contents of guides directory:"
+          ls -la gh-pages-files/guides/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./deploy
-          publish_branch: gh-pages
-          commit_message: "Deploy to GitHub Pages"
+          publish_dir: ./gh-pages-files
           force_orphan: true
           enable_jekyll: false
-          destination_dir: .
 
       - name: Debug deployment
         run: |
