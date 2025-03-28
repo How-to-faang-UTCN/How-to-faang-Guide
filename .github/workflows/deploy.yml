@@ -16,8 +16,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     environment:
-      name: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || 'github-pages' }}
-      url: ${{ steps.deployment.outputs.page_url }}
+      name: github-pages
     steps:
       - uses: actions/checkout@v3
 
@@ -35,25 +34,34 @@ jobs:
       - name: Generate manifest
         run: node --loader ts-node/esm scripts/generate-manifest.ts
 
-      - name: Copy files
+      - name: Prepare deployment files
         run: |
-          mkdir -p dist
-          cp -r guides dist/
-          cp src/index.html dist/
-          cp src/styles.css dist/
+          # Create a clean deployment directory
+          rm -rf deploy
+          mkdir -p deploy
 
-      - name: Debug dist contents
+          # Copy only the necessary files
+          cp -r guides deploy/
+          cp src/index.html deploy/
+          cp src/styles.css deploy/
+          cp dist/app.js deploy/
+          cp dist/utils deploy/
+
+          # Create .nojekyll file
+          touch deploy/.nojekyll
+
+      - name: Debug deployment files
         run: |
-          echo "Contents of dist directory:"
-          ls -la dist/
-          echo "Contents of dist/guides directory:"
-          ls -la dist/guides/
+          echo "Contents of deploy directory:"
+          ls -la deploy/
+          echo "Contents of deploy/guides directory:"
+          ls -la deploy/guides/
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./deploy
           destination_dir: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || '.' }}
           commit_message: ${{ github.event_name == 'pull_request' && format('Deploy PR {0}', github.event.number) || 'Deploy to GitHub Pages' }}
