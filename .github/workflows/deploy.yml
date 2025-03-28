@@ -68,4 +68,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./deploy
           destination_dir: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || '.' }}
-          commit_message: ${{ github.event_name == 'pull_request' && format('Deploy PR #{0}', github.event.number) || 'Deploy to GitHub Pages' }}
+          commit_message: ${{ github.event_name == 'pull_request' && format('Deploy PR {0}', github.event.number) || 'Deploy to GitHub Pages' }}
