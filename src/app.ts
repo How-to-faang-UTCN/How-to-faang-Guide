@@ -27,7 +27,7 @@ class MarkdownViewer {
 
     private async detectMarkdownFiles() {
         try {
-            const response = await fetch('guides/manifest.json');
+            const response = await fetch('manifest.json');
             if (!response.ok) {
                 throw new Error('Failed to load manifest');
             }

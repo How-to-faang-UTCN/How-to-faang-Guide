@@ -19,7 +19,7 @@ class MarkdownViewer {
     }
     async detectMarkdownFiles() {
         try {
-            const response = await fetch('/guides/manifest.json');
+            const response = await fetch('guides/manifest.json');
             if (!response.ok) {
                 throw new Error('Failed to load manifest');
             }
@@ -47,7 +47,7 @@ class MarkdownViewer {
     }
     async loadContent(filename) {
         try {
-            const response = await fetch(`/guides/${filename}`);
+            const response = await fetch(`guides/${filename}`);
             if (!response.ok) {
                 throw new Error('Failed to load content');
             }
