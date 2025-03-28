@@ -54,33 +54,16 @@ jobs:
 
       - name: Debug deployment files
         run: |
-          echo "Current directory:"
-          pwd
-          echo "Contents of current directory:"
-          ls -la
           echo "Contents of deploy directory:"
           ls -la deploy/
           echo "Contents of deploy/guides directory:"
           ls -la deploy/guides/
-          echo "Contents of dist directory:"
-          ls -la dist/
-          echo "Contents of src directory:"
-          ls -la src/
 
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./deploy
-          destination_dir: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || '.' }}
-          commit_message: ${{ github.event_name == 'pull_request' && format('Deploy PR {0}', github.event.number) || 'Deploy to GitHub Pages' }}
+          commit_message: "Deploy to GitHub Pages"
           force_orphan: true
           enable_jekyll: false
-
-      - name: Debug deployment output
-        run: |
-          echo "Deployment output:"
-          echo "Destination directory: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || '.' }}"
-          echo "PR number: ${{ github.event.pull_request.number }}"
-          echo "Event name: ${{ github.event_name }}"
