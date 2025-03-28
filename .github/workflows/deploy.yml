@@ -45,7 +45,11 @@ jobs:
           cp src/index.html deploy/
           cp src/styles.css deploy/
           cp dist/app.js deploy/
-          cp dist/utils deploy/
+
+          # Copy utils directory if it exists
+          if [ -d "dist/utils" ]; then
+            cp -r dist/utils deploy/
+          fi
 
           # Create .nojekyll file
           touch deploy/.nojekyll
@@ -64,4 +68,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./deploy
           destination_dir: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || '.' }}
-          commit_message: ${{ github.event_name == 'pull_request' && format('Deploy PR {0}', github.event.number) || 'Deploy to GitHub Pages' }}
+          commit_message: ${{ github.event_name == 'pull_request' && format('Deploy PR #{0}', github.event.number) || 'Deploy to GitHub Pages' }}
