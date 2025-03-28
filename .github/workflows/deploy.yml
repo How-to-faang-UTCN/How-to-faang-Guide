@@ -79,13 +79,14 @@ jobs:
       - name: Comment PR
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v6
+        env:
+          PREVIEW_URL: ${{ steps.preview.outputs.preview_url }}
         with:
           script: |
-            const previewUrl = '${{ steps.preview.outputs.preview_url }}';
-            console.log('Preview URL:', previewUrl);
+            console.log('Preview URL:', process.env.PREVIEW_URL);
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: '🚀 Preview deployment is ready!\n\nYou can view your changes at: ' + previewUrl + '\n\nNote: It may take a few minutes for the deployment to be available.'
+              body: '🚀 Preview deployment is ready!\n\nYou can view your changes at: ' + process.env.PREVIEW_URL + '\n\nNote: It may take a few minutes for the deployment to be available.'
             });
