@@ -54,9 +54,11 @@ jobs:
       - name: Comment PR
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v6
+        env:
+          PREVIEW_URL: ${{ steps.deployment.outputs.page_url }}
         with:
           script: |
-            const url = '${{ steps.deployment.outputs.page_url }}';
+            const url = process.env.PREVIEW_URL;
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
