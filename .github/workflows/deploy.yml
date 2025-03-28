@@ -87,5 +87,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: `🚀 Preview deployment is ready!\n\nYou can view your changes at: ${previewUrl}\n\nNote: It may take a few minutes for the deployment to be available.`
+              body: '🚀 Preview deployment is ready!\n\nYou can view your changes at: ' + previewUrl + '\n\nNote: It may take a few minutes for the deployment to be available.'
             });
