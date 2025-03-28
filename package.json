@@ -11,7 +11,7 @@
         "type-check": "tsc --noEmit"
     },
     "devDependencies": {
-        "@types/node": "^20.28.0",
+        "@types/node": "^20.11.19",
         "marked": "^12.0.1",
         "serve": "^14.2.1",
         "ts-node": "^10.9.2",

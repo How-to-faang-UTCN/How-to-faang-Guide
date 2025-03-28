@@ -5,20 +5,17 @@ on:
     branches:
       - master
   pull_request:
-    branches:
-      - staging
+    types: [opened, reopened, synchronize]
 
 permissions:
   contents: write
   pages: write
   id-token: write
+  pull-requests: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v3
 
@@ -36,17 +33,110 @@ jobs:
       - name: Generate manifest
         run: node --loader ts-node/esm scripts/generate-manifest.ts
 
-      - name: Copy files
+      - name: Prepare deployment files
         run: |
-          mkdir -p dist
-          cp -r guides dist/
-          cp src/index.html dist/
-          cp src/styles.css dist/
+          # Create a clean directory directly for gh-pages
+          mkdir -p gh-pages-files
+
+          # Copy index.html to the root
+          cp src/index.html gh-pages-files/
+          cp src/styles.css gh-pages-files/
+          cp dist/app.js gh-pages-files/
+          cp -r guides gh-pages-files/
+
+          # Copy utils directory if it exists
+          if [ -d "dist/utils" ]; then
+            cp -r dist/utils gh-pages-files/
+          fi
+
+          # Create .nojekyll file to disable Jekyll processing
+          touch gh-pages-files/.nojekyll
+
+      - name: Debug deployment files
+        run: |
+          echo "Contents of deployment directory:"
+          ls -la gh-pages-files/
+          echo "Contents of guides directory:"
+          ls -la gh-pages-files/guides/
+
+      # For PRs, deploy to a preview directory
+      - name: Prepare PR preview directory
+        if: github.event_name == 'pull_request'
+        run: |
+          PR_NUMBER=${{ github.event.number }}
+          mkdir -p gh-pages-files/pr-preview/$PR_NUMBER
+          # Copy files to the PR preview directory but exclude the pr-preview directory itself
+          cp -r gh-pages-files/index.html gh-pages-files/guides gh-pages-files/.nojekyll gh-pages-files/pr-preview/$PR_NUMBER/
+          if [ -f "gh-pages-files/styles.css" ]; then
+            cp gh-pages-files/styles.css gh-pages-files/pr-preview/$PR_NUMBER/
+          fi
+          if [ -f "gh-pages-files/app.js" ]; then
+            cp gh-pages-files/app.js gh-pages-files/pr-preview/$PR_NUMBER/
+          fi
+          if [ -d "gh-pages-files/utils" ]; then
+            cp -r gh-pages-files/utils gh-pages-files/pr-preview/$PR_NUMBER/
+          fi
+          # Create a redirect from the PR preview root to the guides directory
+          cat << EOF > gh-pages-files/pr-preview/$PR_NUMBER/index.html
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta http-equiv="refresh" content="0; url=guides/">
+              <title>UTCN - How To FAANG Guide (PR #$PR_NUMBER Preview)</title>
+          </head>
+          <body>
+              <p>You are being redirected to the PR preview. If you are not redirected automatically, please click <a href="guides/">here</a>.</p>
+          </body>
+          </html>
+          EOF
+          echo "Preview directory created at: pr-preview/$PR_NUMBER"
+          ls -la gh-pages-files/pr-preview/$PR_NUMBER/
 
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          destination_dir: ${{ github.event_name == 'pull_request' && 'staging' || '.' }}
+          publish_dir: ./gh-pages-files
+          force_orphan: false
+          enable_jekyll: false
+          keep_files: true
+
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        if: github.event_name == 'pull_request'
+        id: fc
+        with:
+          issue-number: ${{ github.event.number }}
+          comment-author: "github-actions[bot]"
+          body-includes: Preview deployment is ready!
+
+      - name: Create or update comment
+        uses: peter-evans/create-or-update-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: ${{ github.event.number }}
+          body: |
+            ### 🚀 Preview deployment is ready!
+
+            You can preview your changes at:
+
+            🔗 https://how-to-faang-utcn.github.io/How-to-faang-Guide/pr-preview/${{ github.event.number }}/
+
+            *This preview will be updated with each new commit to this PR.*
+          edit-mode: replace
+          reactions: rocket
+
+      - name: Debug deployment
+        run: |
+          echo "Checking gh-pages branch..."
+          git fetch origin gh-pages
+          git stash
+          git checkout gh-pages
+          echo "Contents of gh-pages branch:"
+          ls -la
+          echo "Checking remote branches:"
+          git branch -a
+          echo "Checking if gh-pages branch is up to date:"
+          git status
