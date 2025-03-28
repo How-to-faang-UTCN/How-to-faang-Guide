@@ -64,6 +64,17 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./deploy
+          publish_branch: gh-pages
           commit_message: "Deploy to GitHub Pages"
           force_orphan: true
           enable_jekyll: false
+
+      - name: Debug deployment
+        run: |
+          echo "Checking gh-pages branch..."
+          git fetch origin gh-pages
+          git checkout gh-pages
+          echo "Contents of gh-pages branch:"
+          ls -la
+          echo "Checking remote branches:"
+          git branch -a
