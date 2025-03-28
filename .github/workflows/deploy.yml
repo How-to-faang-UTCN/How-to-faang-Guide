@@ -83,8 +83,8 @@ jobs:
         uses: actions/deploy-pages@v2
         with:
           artifact_name: github-pages
-          environment_name: ${{ github.event_name == 'pull_request' && 'preview' || 'github-pages' }}
-          environment_url: ${{ steps.pages.outputs.base_url }}/${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || '' }}
+          preview: ${{ github.event_name == 'pull_request' }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Debug deployment output
         run: |
