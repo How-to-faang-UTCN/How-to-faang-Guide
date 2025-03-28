@@ -15,8 +15,6 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: ${{ github.event_name == 'pull_request' && 'preview' || 'github-pages' }}
     steps:
       - uses: actions/checkout@v3
 
@@ -69,22 +67,16 @@ jobs:
           echo "Contents of src directory:"
           ls -la src/
 
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v3
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: "./deploy"
-
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          artifact_name: github-pages
-          preview: ${{ github.event_name == 'pull_request' }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./deploy
+          destination_dir: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || '.' }}
+          commit_message: ${{ github.event_name == 'pull_request' && format('Deploy PR {0}', github.event.number) || 'Deploy to GitHub Pages' }}
+          force_orphan: true
+          enable_jekyll: false
 
       - name: Debug deployment output
         run: |
@@ -92,5 +84,3 @@ jobs:
           echo "Destination directory: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || '.' }}"
           echo "PR number: ${{ github.event.pull_request.number }}"
           echo "Event name: ${{ github.event_name }}"
-          echo "Base URL: ${{ steps.pages.outputs.base_url }}"
-          echo "Environment URL: ${{ steps.deployment.outputs.page_url }}"
