@@ -34,18 +34,22 @@ jobs:
 
       - name: Prepare deployment files
         run: |
+          # Create a clean deployment directory
           rm -rf deploy
           mkdir -p deploy
 
+          # Copy only the necessary files
           cp -r guides deploy/
           cp src/index.html deploy/
           cp src/styles.css deploy/
           cp dist/app.js deploy/
 
+          # Copy utils directory if it exists
           if [ -d "dist/utils" ]; then
             cp -r dist/utils deploy/
           fi
 
+          # Create .nojekyll file
           touch deploy/.nojekyll
 
       - name: Debug deployment files
@@ -64,6 +68,7 @@ jobs:
           commit_message: "Deploy to GitHub Pages"
           force_orphan: true
           enable_jekyll: false
+          destination_dir: .
 
       - name: Debug deployment
         run: |
