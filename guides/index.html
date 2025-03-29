@@ -103,6 +103,20 @@
             padding-left: 2em;
         }
 
+        .content ul ul,
+        .content ol ol {
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+        }
+
+        .content li {
+            margin-bottom: 0.5em;
+        }
+
+        .content li:last-child {
+            margin-bottom: 0;
+        }
+
         .content a {
             color: #3498db;
             text-decoration: none;
@@ -212,9 +226,22 @@
                     .replace(/`(.*?)`/g, '<code>$1</code>')
                     .replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>')
                     .replace(/\n/g, '<br>')
-                    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>')
-                    .replace(/^\s*[-*]\s+(.*$)/gm, '<li>$1</li>')
-                    .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
+                    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
+
+                html = html.replace(/^\s*[-*]\s+(.*$)/gm, '<li>$1</li>');
+
+                html = html.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
+
+                html = html.replace(/<ul>\s*<li>(.*?)<ul>/g, '<ul><li>$1<ul>');
+                html = html.replace(/<\/ul>\s*<\/li>\s*<\/ul>/g, '</ul></li></ul>');
+
+                html = html
+                    .replace(/<h1>(.*?)<\/h1>/g, '<h1 class="main-title">$1</h1>')
+                    .replace(/<h2>(.*?)<\/h2>/g, '<h2 class="section-title">$1</h2>')
+                    .replace(/<h3>(.*?)<\/h3>/g, '<h3 class="subsection-title">$1</h3>')
+                    .replace(/<h4>(.*?)<\/h4>/g, '<h4 class="subsubsection-title">$1</h4>')
+                    .replace(/<h5>(.*?)<\/h5>/g, '<h5 class="subsubsection-title">$1</h5>')
+                    .replace(/<h6>(.*?)<\/h6>/g, '<h6 class="subsubsection-title">$1</h6>');
 
                 this.contentContainer.innerHTML = html;
             }
