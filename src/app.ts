@@ -32,49 +32,109 @@ class MarkdownViewer {
 
     private async detectMarkdownFiles() {
         try {
-            const response = await fetch('./guides/manifest.json');
-            if (!response.ok) {
-                throw new Error('Failed to load manifest');
+            // Try multiple path patterns to find the manifest
+            let manifest;
+            const possiblePaths = [
+                './manifest.json',
+                './guides/manifest.json',
+                '/manifest.json',
+                '/guides/manifest.json'
+            ];
+
+            // Try each path until we get a successful response
+            for (const path of possiblePaths) {
+                try {
+                    const response = await fetch(path);
+                    if (response.ok) {
+                        manifest = await response.json();
+                        console.error(`Successfully loaded manifest from ${path}`);
+                        break;
+                    }
+                } catch (e) {
+                    // Continue to next path
+                }
             }
-            const manifest = await response.json();
-            if (!manifest.files || !Array.isArray(manifest.files)) {
-                throw new Error('Invalid manifest format');
+
+            // If we found a manifest and it has the right format
+            if (manifest && manifest.files && Array.isArray(manifest.files)) {
+                this.markdownFiles = manifest.files;
+                return;
             }
-            this.markdownFiles = manifest.files;
+
+            // If we get here, no manifest was successfully loaded
+            throw new Error('Could not load manifest from any path');
         } catch (error) {
             console.error('Error loading manifest:', error);
-            this.markdownFiles = ['Readme.md'];
+            // Hardcode the files as fallback
+            this.markdownFiles = [
+                'Readme.md',
+                'Open_Internships.md',
+                'Contribute.md',
+                'Amazon_Guide.md',
+                'Bloomberg_Guide.md',
+                'Google_Guide.md',
+                'Jane_Street_Guide.md',
+                'Microsoft_Guide.md',
+                'Optiver_Guide.md'
+            ];
         }
     }
 
     private createTabs() {
         this.tabsContainer.innerHTML = '';
+
         this.markdownFiles.forEach(file => {
             const tabName = file.replace('.md', '').replace(/_/g, ' ');
+
             const button = document.createElement('button');
             button.className = 'tab-button';
             button.textContent = tabName === 'Readme' ? 'Overview' : tabName;
+            button.dataset.file = file;
             button.onclick = () => this.loadContent(file);
+
             this.tabsContainer.appendChild(button);
         });
     }
 
     private async loadContent(filename: string) {
         try {
-            const response = await fetch(`./guides/${filename}`);
-            if (!response.ok) {
-                throw new Error('Failed to load content');
+            // Try multiple paths for markdown files
+            let response;
+            const possiblePaths = [
+                `./guides/${filename}`,
+                `./${filename}`,
+                `/guides/${filename}`,
+                `/${filename}`
+            ];
+
+            for (const path of possiblePaths) {
+                try {
+                    const res = await fetch(path);
+                    if (res.ok) {
+                        response = res;
+                        console.error(`Successfully loaded ${filename} from ${path}`);
+                        break;
+                    }
+                } catch (e) {
+                    // Continue to next path
+                }
             }
+
+            if (!response) {
+                throw new Error(`Failed to load content for ${filename} from any path`);
+            }
+
             const markdown = await response.text();
             this.renderMarkdown(markdown);
             this.updateActiveTab(filename);
         } catch (error) {
             console.error('Error loading content:', error);
-            this.showError('Failed to load content. Please try again later.');
+            this.showError(`Failed to load content for ${filename}. Please try again later.`);
         }
     }
 
     private renderMarkdown(markdown: string) {
+        // Process the markdown in steps
         let html = markdown
             .replace(/^# (.*$)/gm, '<h1>$1</h1>')
             .replace(/^## (.*$)/gm, '<h2>$1</h2>')
@@ -85,13 +145,46 @@ class MarkdownViewer {
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
             .replace(/\*(.*?)\*/g, '<em>$1</em>')
             .replace(/`(.*?)`/g, '<code>$1</code>')
-            .replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>')
-            .replace(/\n/g, '<br>')
-            .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>')
-            .replace(/^\s*[-*]\s+(.*$)/gm, '<li>$1</li>')
-            .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
+            .replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>');
 
-        this.contentContainer.innerHTML = html;
+        // Handle line breaks
+        const lines = html.split('\n');
+
+        // Process lists
+        let inList = false;
+        let listHtml = '';
+        let resultHtml = '';
+
+        lines.forEach(line => {
+            const listItemMatch = line.match(/^\s*[-*]\s+(.*)/);
+
+            if (listItemMatch) {
+                if (!inList) {
+                    inList = true;
+                    listHtml = '<ul>';
+                }
+                listHtml += `<li>${listItemMatch[1]}</li>`;
+            } else {
+                if (inList) {
+                    inList = false;
+                    listHtml += '</ul>';
+                    resultHtml += listHtml;
+                    listHtml = '';
+                }
+                resultHtml += line + '<br>';
+            }
+        });
+
+        // If we were still in a list at the end
+        if (inList) {
+            listHtml += '</ul>';
+            resultHtml += listHtml;
+        }
+
+        // Handle links last to avoid conflicts
+        resultHtml = resultHtml.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
+
+        this.contentContainer.innerHTML = resultHtml;
     }
 
     private updateActiveTab(filename: string) {

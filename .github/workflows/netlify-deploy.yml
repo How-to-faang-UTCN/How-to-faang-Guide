@@ -1,0 +1,131 @@
+name: Deploy to Netlify
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup TypeScript
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build TypeScript
+        run: |
+          echo "Building TypeScript files..."
+          npx tsc
+          echo "TypeScript build complete. Checking output files:"
+          ls -la dist/
+
+          if [ -f "dist/app.js" ]; then
+            echo "✅ app.js was built successfully"
+          else
+            echo "❌ app.js was not built! Checking TypeScript config..."
+            cat tsconfig.json || echo "tsconfig.json not found!"
+          fi
+
+      - name: Generate manifest
+        run: |
+          echo "Generating manifest from guides directory..."
+          node --loader ts-node/esm scripts/generate-manifest.ts
+          echo "Generated manifest content:"
+          cat guides/manifest.json
+
+      - name: Build project
+        run: |
+          echo "Building project using npm run build..."
+          npm run build
+          echo "Build completed. Checking output files:"
+          ls -la dist/
+
+      - name: Prepare deployment files
+        run: |
+          # Use the dist directory directly for deployment
+          echo "Preparing files from dist directory for deployment..."
+
+          # Create a netlify.toml file for configuration that doesn't redirect to guides
+          cat << EOF > dist/netlify.toml
+          # Handle 404s by serving index.html
+          [[redirects]]
+            from = "/*"
+            to = "/index.html"
+            status = 200
+            
+          # Explicitly disable any redirects from root to /guides/
+          [[redirects]]
+            from = "/"
+            to = "/index.html"
+            status = 200
+            force = true
+          EOF
+
+          # Create .nojekyll file to disable Jekyll processing
+          touch dist/.nojekyll
+
+          # Display deployment info
+          if [ "${{ github.event_name }}" == "push" ]; then
+            echo "🚀 Preparing PRODUCTION deployment to Netlify from master branch"
+          else
+            echo "🔍 Preparing PREVIEW deployment to Netlify for PR #${{ github.event.number }}"
+          fi
+
+          # Show deployment structure
+          echo "Deployment directory structure:"
+          find dist -type f | sort
+
+      # Display deployment info
+      - name: Check Netlify credentials
+        run: |
+          if [ -n "${{ secrets.NETLIFY_AUTH_TOKEN }}" ]; then
+            echo "✅ NETLIFY_AUTH_TOKEN is set"
+            echo "Token starts with: ${NETLIFY_AUTH_TOKEN:0:4}..."
+          else
+            echo "❌ NETLIFY_AUTH_TOKEN is not set"
+          fi
+
+          if [ -n "${{ secrets.NETLIFY_SITE_ID }}" ]; then
+            echo "✅ NETLIFY_SITE_ID is set"
+            echo "Site ID starts with: ${NETLIFY_SITE_ID:0:4}..."
+          else
+            echo "❌ NETLIFY_SITE_ID is not set"
+          fi
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      # Deploy to Netlify
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+
+      - name: Deploy to Netlify
+        id: netlify-deploy
+        run: |
+          if [ "${{ github.event_name }}" == "push" ]; then
+            echo "Deploying to production..."
+            netlify deploy --dir=./dist --prod
+          else
+            echo "Deploying preview for PR #${{ github.event.number }}..."
+            netlify deploy --dir=./dist --alias="pr-${{ github.event.number }}"
+          fi
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      # Output deployment URLs
+      - name: Display deployment URLs
+        if: success()
+        run: |
+          echo "🚀 Deployment successful!"
+          echo "Your site should be available at:"
+          echo "https://$(cat .netlify/output)" || echo "https://$(cat .netlify/state.json | jq -r .siteId).netlify.app"
