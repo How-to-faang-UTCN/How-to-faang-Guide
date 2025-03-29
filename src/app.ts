@@ -32,49 +32,81 @@ class MarkdownViewer {
 
     private async detectMarkdownFiles() {
         try {
-            const response = await fetch('./guides/manifest.json');
+            const response = await fetch('./manifest.json');
             if (!response.ok) {
-                throw new Error('Failed to load manifest');
+                // Try alternative path
+                const alternativeResponse = await fetch('./guides/manifest.json');
+                if (!alternativeResponse.ok) {
+                    throw new Error(`Failed to load manifest (status: ${response.status})`);
+                }
+                const manifest = await alternativeResponse.json();
+                if (!manifest.files || !Array.isArray(manifest.files)) {
+                    throw new Error('Invalid manifest format - missing files array');
+                }
+                this.markdownFiles = manifest.files;
+                return;
             }
             const manifest = await response.json();
             if (!manifest.files || !Array.isArray(manifest.files)) {
-                throw new Error('Invalid manifest format');
+                throw new Error('Invalid manifest format - missing files array');
             }
             this.markdownFiles = manifest.files;
         } catch (error) {
             console.error('Error loading manifest:', error);
-            this.markdownFiles = ['Readme.md'];
+            // Hardcode the files as fallback
+            this.markdownFiles = [
+                'Readme.md',
+                'Open_Internships.md',
+                'Contribute.md',
+                'Amazon_Guide.md',
+                'Bloomberg_Guide.md',
+                'Google_Guide.md',
+                'Jane_Street_Guide.md',
+                'Microsoft_Guide.md',
+                'Optiver_Guide.md'
+            ];
         }
     }
 
     private createTabs() {
         this.tabsContainer.innerHTML = '';
+
         this.markdownFiles.forEach(file => {
             const tabName = file.replace('.md', '').replace(/_/g, ' ');
+
             const button = document.createElement('button');
             button.className = 'tab-button';
             button.textContent = tabName === 'Readme' ? 'Overview' : tabName;
+            button.dataset.file = file;
             button.onclick = () => this.loadContent(file);
+
             this.tabsContainer.appendChild(button);
         });
     }
 
     private async loadContent(filename: string) {
         try {
-            const response = await fetch(`./guides/${filename}`);
+            let response = await fetch(`./guides/${filename}`);
+
+            // If not found in guides subdirectory, try the root
             if (!response.ok) {
-                throw new Error('Failed to load content');
+                response = await fetch(`./${filename}`);
+                if (!response.ok) {
+                    throw new Error(`Failed to load content for ${filename} (status: ${response.status})`);
+                }
             }
+
             const markdown = await response.text();
             this.renderMarkdown(markdown);
             this.updateActiveTab(filename);
         } catch (error) {
             console.error('Error loading content:', error);
-            this.showError('Failed to load content. Please try again later.');
+            this.showError(`Failed to load content for ${filename}. Please try again later.`);
         }
     }
 
     private renderMarkdown(markdown: string) {
+        // Process the markdown in steps
         let html = markdown
             .replace(/^# (.*$)/gm, '<h1>$1</h1>')
             .replace(/^## (.*$)/gm, '<h2>$1</h2>')
@@ -85,19 +117,46 @@ class MarkdownViewer {
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
             .replace(/\*(.*?)\*/g, '<em>$1</em>')
             .replace(/`(.*?)`/g, '<code>$1</code>')
-            .replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>')
-            .replace(/\n/g, '<br>');
+            .replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>');
 
-        // Handle unordered lists with proper nesting
-        html = html.replace(/^\s*[-*]\s+(.*$)/gm, '<li>$1</li>');
+        // Handle line breaks
+        const lines = html.split('\n');
 
-        // Group consecutive list items into lists
-        html = html.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
+        // Process lists
+        let inList = false;
+        let listHtml = '';
+        let resultHtml = '';
 
-        // Handle links last to avoid conflicts with other replacements
-        html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
+        lines.forEach(line => {
+            const listItemMatch = line.match(/^\s*[-*]\s+(.*)/);
 
-        this.contentContainer.innerHTML = html;
+            if (listItemMatch) {
+                if (!inList) {
+                    inList = true;
+                    listHtml = '<ul>';
+                }
+                listHtml += `<li>${listItemMatch[1]}</li>`;
+            } else {
+                if (inList) {
+                    inList = false;
+                    listHtml += '</ul>';
+                    resultHtml += listHtml;
+                    listHtml = '';
+                }
+                resultHtml += line + '<br>';
+            }
+        });
+
+        // If we were still in a list at the end
+        if (inList) {
+            listHtml += '</ul>';
+            resultHtml += listHtml;
+        }
+
+        // Handle links last to avoid conflicts
+        resultHtml = resultHtml.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
+
+        this.contentContainer.innerHTML = resultHtml;
     }
 
     private updateActiveTab(filename: string) {

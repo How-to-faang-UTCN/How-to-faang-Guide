@@ -1,21 +1,23 @@
 {
-    "name": "faang-guide",
+    "name": "how-to-faang-guide",
     "private": true,
     "version": "1.0.0",
     "type": "module",
-    "description": "A comprehensive guide for FAANG internships",
+    "description": "UTCN Guide to FAANG companies",
     "scripts": {
-        "build": "tsc && node --loader ts-node/esm scripts/generate-manifest.ts && npm run copy-files",
-        "copy-files": "cp -r guides dist/ && cp src/index.html dist/ && cp src/styles.css dist/",
-        "dev": "npm run build && npx serve dist -l 3000",
-        "type-check": "tsc --noEmit"
+        "build": "tsc && cp src/index.html dist/ && cp src/styles.css dist/ && mkdir -p dist/guides && cp guides/*.md dist/guides/ && cp guides/manifest.json dist/guides/ && cp guides/manifest.json dist/",
+        "generate-manifest": "node --loader ts-node/esm scripts/generate-manifest.ts",
+        "dev": "npm run generate-manifest && npm run build && http-server ./dist -o -c-1",
+        "start": "http-server ./dist",
+        "test-ui": "npm run generate-manifest && npm run build && http-server ./dist -o -c-1"
     },
     "devDependencies": {
         "@types/node": "^20.11.19",
+        "http-server": "^14.1.1",
         "marked": "^12.0.1",
         "serve": "^14.2.1",
-        "ts-node": "^10.9.2",
-        "typescript": "^5.4.2"
+        "ts-node": "^10.9.1",
+        "typescript": "^4.9.5"
     },
     "dependencies": {
         "marked": "^15.0.7"

@@ -42,54 +42,20 @@ jobs:
           echo "Generated manifest content:"
           cat guides/manifest.json
 
-          # Verify Optiver_Guide.md is in the guides directory
-          echo "Checking for Optiver_Guide.md in guides directory:"
-          ls -la guides/Optiver_Guide.md || echo "Optiver_Guide.md not found!"
+      - name: Build project
+        run: |
+          echo "Building project using npm run build..."
+          npm run build
+          echo "Build completed. Checking output files:"
+          ls -la dist/
 
       - name: Prepare deployment files
         run: |
-          # Create a clean directory for deployment
-          mkdir -p build
-
-          # Copy all necessary files
-          cp src/index.html build/index.html
-          cp src/styles.css build/styles.css
-
-          # Copy TypeScript build output
-          if [ -f "dist/app.js" ]; then
-            cp dist/app.js build/app.js
-          fi
-
-          # Ensure guides directory exists and copy all markdown files
-          mkdir -p build/guides
-          echo "Copying all .md files to build/guides:"
-          cp -v guides/*.md build/guides/
-          cp -v guides/manifest.json build/guides/
-
-          # Verify the files in build/guides
-          echo "Files in build/guides:"
-          ls -la build/guides/
-
-          # Verify Optiver_Guide.md was copied
-          if [ -f "build/guides/Optiver_Guide.md" ]; then
-            echo "✅ Optiver_Guide.md was copied successfully"
-          else
-            echo "❌ Optiver_Guide.md was not copied!"
-            # Try to copy it explicitly
-            cp -v guides/Optiver_Guide.md build/guides/ || echo "Could not copy Optiver_Guide.md!"
-          fi
-
-          # Copy utils directory if it exists
-          if [ -d "dist/utils" ]; then
-            mkdir -p build/utils
-            cp -r dist/utils/* build/utils/
-          fi
-
-          # Create .nojekyll file to disable Jekyll processing
-          touch build/.nojekyll
+          # Use the dist directory directly for deployment
+          echo "Preparing files from dist directory for deployment..."
 
           # Create a netlify.toml file for configuration
-          cat << EOF > build/netlify.toml
+          cat << EOF > dist/netlify.toml
           # Redirect all requests to index.html for SPA routing
           [[redirects]]
             from = "/*"
@@ -104,6 +70,9 @@ jobs:
             status = 200
           EOF
 
+          # Create .nojekyll file to disable Jekyll processing
+          touch dist/.nojekyll
+
           # Display deployment info
           if [ "${{ github.event_name }}" == "push" ]; then
             echo "🚀 Preparing PRODUCTION deployment to Netlify from master branch"
@@ -113,7 +82,7 @@ jobs:
 
           # Show deployment structure
           echo "Deployment directory structure:"
-          find build -type f | sort
+          find dist -type f | sort
 
       # Display deployment info
       - name: Check Netlify credentials
@@ -144,10 +113,10 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" == "push" ]; then
             echo "Deploying to production..."
-            netlify deploy --dir=./build --prod
+            netlify deploy --dir=./dist --prod
           else
             echo "Deploying preview for PR #${{ github.event.number }}..."
-            netlify deploy --dir=./build --alias="pr-${{ github.event.number }}"
+            netlify deploy --dir=./dist --alias="pr-${{ github.event.number }}"
           fi
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
