@@ -16,13 +16,8 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: ${{ github.event_name == 'pull_request' && 'preview' || 'github-pages' }}
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Setup TypeScript
         uses: actions/setup-node@v3
@@ -98,28 +93,14 @@ jobs:
           echo "Preview directory created at: pr-preview/$PR_NUMBER"
           ls -la gh-pages-files/pr-preview/$PR_NUMBER/
 
-      # Upload artifact for debugging if needed
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: deployment-files
-          path: gh-pages-files
-
-      # Set up Pages
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v3
-
-      # Upload artifact for Pages
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: "./gh-pages-files"
-
-      # Deploy to GitHub Pages
+      # Deploy to GitHub Pages using the peaceiris action instead
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./gh-pages-files
+          force_orphan: false
+          keep_files: true
 
       # Comment on the PR with the preview link
       - name: Find Comment
