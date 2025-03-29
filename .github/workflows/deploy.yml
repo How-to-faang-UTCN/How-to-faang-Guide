@@ -11,12 +11,18 @@ permissions:
   contents: write
   pages: write
   id-token: write
+  pull-requests: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Setup TypeScript
         uses: actions/setup-node@v3
@@ -105,20 +111,8 @@ jobs:
 
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
         id: deployment
         uses: actions/deploy-pages@v2
-
-      # For PRs, we need to use the manual deployment action
-      - name: Deploy PR preview to GitHub Pages
-        if: github.event_name == 'pull_request'
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./gh-pages-files
-          force_orphan: false
-          enable_jekyll: false
-          keep_files: true
 
       # Comment on the PR with the preview link
       - name: Find Comment
@@ -129,3 +123,20 @@ jobs:
           issue-number: ${{ github.event.number }}
           comment-author: "github-actions[bot]"
           body-includes: Preview deployment is ready!
+
+      - name: Create or update comment
+        uses: peter-evans/create-or-update-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: ${{ github.event.number }}
+          body: |
+            ### 🚀 Preview deployment is ready!
+
+            You can preview your changes at:
+
+            🔗 https://how-to-faang-utcn.github.io/How-to-faang-Guide/pr-preview/${{ github.event.number }}/
+
+            *This preview will be updated with each new commit to this PR.*
+          edit-mode: replace
+          reactions: rocket
