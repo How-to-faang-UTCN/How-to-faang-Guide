@@ -1,0 +1,90 @@
+name: Deploy to Netlify
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup TypeScript
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build TypeScript
+        run: npx tsc
+
+      - name: Generate manifest
+        run: node --loader ts-node/esm scripts/generate-manifest.ts
+
+      - name: Prepare deployment files
+        run: |
+          # Create a clean directory for deployment
+          mkdir -p build
+
+          # Copy all necessary files
+          cp src/index.html build/
+          cp src/styles.css build/
+          cp dist/app.js build/
+          cp -r guides build/
+
+          # Copy utils directory if it exists
+          if [ -d "dist/utils" ]; then
+            cp -r dist/utils build/
+          fi
+
+          # Create .nojekyll file to disable Jekyll processing
+          touch build/.nojekyll
+
+          # Create a netlify.toml file for configuration
+          cat << EOF > build/netlify.toml
+          [[redirects]]
+            from = "/*"
+            to = "/index.html"
+            status = 200
+          EOF
+
+          # Display deployment info
+          if [ "${{ github.event_name }}" == "push" ]; then
+            echo "🚀 Preparing PRODUCTION deployment to Netlify from master branch"
+          else
+            echo "🔍 Preparing PREVIEW deployment to Netlify for PR #${{ github.event.number }}"
+          fi
+
+      # Deploy to Netlify
+      - name: Deploy to Netlify
+        id: netlify-deploy
+        uses: nwtgck/actions-netlify@v2
+        with:
+          publish-dir: "./build"
+          production-branch: master
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: ${{ github.event_name == 'push' && 'Production deployment from master' || format('Preview deployment for PR #{0}', github.event.number) }}
+          enable-pull-request-comment: true
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+          alias: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || 'production' }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1
+
+      # Output deployment URLs
+      - name: Display deployment URLs
+        if: ${{ steps.netlify-deploy.outputs.deploy-url != '' }}
+        run: |
+          echo "🚀 Deployment successful!"
+          echo "Deploy URL: ${{ steps.netlify-deploy.outputs.deploy-url }}"
+          if [ "${{ github.event_name }}" == "push" ]; then
+            echo "Netlify URL: ${{ steps.netlify-deploy.outputs.netlify-url }}"
+          fi
