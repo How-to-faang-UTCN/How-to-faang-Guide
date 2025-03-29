@@ -82,30 +82,48 @@ jobs:
           echo "Deployment directory structure:"
           find build -type f | sort
 
-      # Deploy to Netlify
-      - name: Deploy to Netlify
-        id: netlify-deploy
-        uses: nwtgck/actions-netlify@v2
-        with:
-          publish-dir: "./build"
-          production-branch: master
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: ${{ github.event_name == 'push' && 'Production deployment from master' || format('Preview deployment for PR {0}', github.event.number) }}
-          enable-pull-request-comment: true
-          enable-commit-comment: true
-          overwrites-pull-request-comment: true
-          alias: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || 'production' }}
+      # Display deployment info
+      - name: Check Netlify credentials
+        run: |
+          if [ -n "${{ secrets.NETLIFY_AUTH_TOKEN }}" ]; then
+            echo "✅ NETLIFY_AUTH_TOKEN is set"
+            echo "Token starts with: ${NETLIFY_AUTH_TOKEN:0:4}..."
+          else
+            echo "❌ NETLIFY_AUTH_TOKEN is not set"
+          fi
+
+          if [ -n "${{ secrets.NETLIFY_SITE_ID }}" ]; then
+            echo "✅ NETLIFY_SITE_ID is set"
+            echo "Site ID starts with: ${NETLIFY_SITE_ID:0:4}..."
+          else
+            echo "❌ NETLIFY_SITE_ID is not set"
+          fi
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        timeout-minutes: 1
+
+      # Deploy to Netlify
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+
+      - name: Deploy to Netlify
+        id: netlify-deploy
+        run: |
+          if [ "${{ github.event_name }}" == "push" ]; then
+            echo "Deploying to production..."
+            netlify deploy --dir=./build --prod
+          else
+            echo "Deploying preview for PR #${{ github.event.number }}..."
+            netlify deploy --dir=./build --alias="pr-${{ github.event.number }}"
+          fi
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
       # Output deployment URLs
       - name: Display deployment URLs
-        if: ${{ steps.netlify-deploy.outputs.deploy-url != '' }}
+        if: success()
         run: |
           echo "🚀 Deployment successful!"
-          echo "Deploy URL: ${{ steps.netlify-deploy.outputs.deploy-url }}"
-          if [ "${{ github.event_name }}" == "push" ]; then
-            echo "Netlify URL: ${{ steps.netlify-deploy.outputs.netlify-url }}"
-          fi
+          echo "Your site should be available at:"
+          echo "https://$(cat .netlify/output)" || echo "https://$(cat .netlify/state.json | jq -r .siteId).netlify.app"
