@@ -22,10 +22,29 @@ jobs:
         run: npm install
 
       - name: Build TypeScript
-        run: npx tsc
+        run: |
+          echo "Building TypeScript files..."
+          npx tsc
+          echo "TypeScript build complete. Checking output files:"
+          ls -la dist/
+
+          if [ -f "dist/app.js" ]; then
+            echo "✅ app.js was built successfully"
+          else
+            echo "❌ app.js was not built! Checking TypeScript config..."
+            cat tsconfig.json || echo "tsconfig.json not found!"
+          fi
 
       - name: Generate manifest
-        run: node --loader ts-node/esm scripts/generate-manifest.ts
+        run: |
+          echo "Generating manifest from guides directory..."
+          node --loader ts-node/esm scripts/generate-manifest.ts
+          echo "Generated manifest content:"
+          cat guides/manifest.json
+
+          # Verify Optiver_Guide.md is in the guides directory
+          echo "Checking for Optiver_Guide.md in guides directory:"
+          ls -la guides/Optiver_Guide.md || echo "Optiver_Guide.md not found!"
 
       - name: Prepare deployment files
         run: |
@@ -43,8 +62,22 @@ jobs:
 
           # Ensure guides directory exists and copy all markdown files
           mkdir -p build/guides
-          cp -r guides/*.md build/guides/
-          cp guides/manifest.json build/guides/
+          echo "Copying all .md files to build/guides:"
+          cp -v guides/*.md build/guides/
+          cp -v guides/manifest.json build/guides/
+
+          # Verify the files in build/guides
+          echo "Files in build/guides:"
+          ls -la build/guides/
+
+          # Verify Optiver_Guide.md was copied
+          if [ -f "build/guides/Optiver_Guide.md" ]; then
+            echo "✅ Optiver_Guide.md was copied successfully"
+          else
+            echo "❌ Optiver_Guide.md was not copied!"
+            # Try to copy it explicitly
+            cp -v guides/Optiver_Guide.md build/guides/ || echo "Could not copy Optiver_Guide.md!"
+          fi
 
           # Copy utils directory if it exists
           if [ -d "dist/utils" ]; then

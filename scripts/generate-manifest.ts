@@ -9,8 +9,14 @@ function ensureDirectoryExists(dir: string) {
 
 function getMarkdownFiles(dir: string): string[] {
     try {
+        // Get all files in the directory
         const files = fs.readdirSync(dir);
-        const markdownFiles = files.filter(file => file.endsWith('.md'));
+
+        // Filter for only .md files
+        const allMarkdownFiles = files.filter(file => file.endsWith('.md'));
+
+        // Log what we found for debugging
+        console.log('Found markdown files:', allMarkdownFiles);
 
         // List of special files to prioritize at the top of the listing
         const specialFiles = ['Readme.md', 'Open_Internships.md', 'Contribute.md'];
@@ -19,7 +25,7 @@ function getMarkdownFiles(dir: string): string[] {
         const priorityFiles: string[] = [];
         const regularFiles: string[] = [];
 
-        markdownFiles.forEach(file => {
+        allMarkdownFiles.forEach(file => {
             if (specialFiles.includes(file)) {
                 // Keep the special files in their specified order
                 priorityFiles[specialFiles.indexOf(file)] = file;
@@ -35,7 +41,9 @@ function getMarkdownFiles(dir: string): string[] {
         regularFiles.sort();
 
         // Combine the files with priority files first
-        return [...cleanPriorityFiles, ...regularFiles];
+        const result = [...cleanPriorityFiles, ...regularFiles];
+        console.log('Final markdown files list:', result);
+        return result;
     } catch (error) {
         console.error('Error reading directory:', error);
         return ['Readme.md'];
