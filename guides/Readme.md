@@ -1,8 +1,30 @@
-# How to Faang
 
-[Join our Discord](https://discord.gg/...)
+<h1 >
+  How to FAANG &middot;
+  <a href="https://discord.gg">
+    <img
+      src="https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHHFT949fUipzkiFOBH3fAiZZUCdYojwUyX2aTonS1aIwMrx6NUIsHfUHSLzjGJFxxsG72wAo9EWJR4yQWyJJaDb6rYcBtJvTvH3UoAS4JFNDaxGhmKNaMwgElLURlRFeVkLCjkfnXmWtINWZIrPGYq0-&format=source"
+      alt="Discord"
+      width="32"
+      height="32"
+      align="absmiddle"
+    >
+  </a>
+    <a href="https://how-to-faang-utcn.github.io/How-to-faang-Guide/guides/">
+    <img
+      src="https://avatars.githubusercontent.com/u/205207454?s=200&v=4"
+      alt="Discord"
+      width="32"
+      height="32"
+      align="absmiddle"
+    >
+  </a>
 
----
+</h1>
+
+
+
+This is a full guide on how to get into a FAANG company ( or generally well paid, international companies or startups ). It goes through the full process of planning, how to have a strong CV, how to write the CV, applying, interviews and finally getting an offer. We also have real life stories that might show the other non idealized side of the story as well as specific info on each company. This guide is done specifically for UTCN or any other romanian university and what has worked for us up to this point.
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -16,11 +38,6 @@
     - [Successful Planning](#successful-planning)
 - [Companies](#companies)
 - [Additional Resources](#additional-resources)
-
----
-
-## Introduction
-This is a full guide on how to get into a FAANG company ( or generally well paid, international companies or startups ). It goes through the full process of planning, how to have a strong CV, how to write the CV, applying, interviews and finally getting an offer. We also have real life stories that might show the other non idealized side of the story as well as specific info on each company. This guide is done specifically for UTCN or any other romanian university and what has worked for us up to this point.
 
 ---
 
