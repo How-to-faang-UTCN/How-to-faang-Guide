@@ -32,25 +32,37 @@ class MarkdownViewer {
 
     private async detectMarkdownFiles() {
         try {
-            const response = await fetch('./manifest.json');
-            if (!response.ok) {
-                // Try alternative path
-                const alternativeResponse = await fetch('./guides/manifest.json');
-                if (!alternativeResponse.ok) {
-                    throw new Error(`Failed to load manifest (status: ${response.status})`);
+            // Try multiple path patterns to find the manifest
+            let manifest;
+            const possiblePaths = [
+                './manifest.json',
+                './guides/manifest.json',
+                '/manifest.json',
+                '/guides/manifest.json'
+            ];
+
+            // Try each path until we get a successful response
+            for (const path of possiblePaths) {
+                try {
+                    const response = await fetch(path);
+                    if (response.ok) {
+                        manifest = await response.json();
+                        console.error(`Successfully loaded manifest from ${path}`);
+                        break;
+                    }
+                } catch (e) {
+                    // Continue to next path
                 }
-                const manifest = await alternativeResponse.json();
-                if (!manifest.files || !Array.isArray(manifest.files)) {
-                    throw new Error('Invalid manifest format - missing files array');
-                }
+            }
+
+            // If we found a manifest and it has the right format
+            if (manifest && manifest.files && Array.isArray(manifest.files)) {
                 this.markdownFiles = manifest.files;
                 return;
             }
-            const manifest = await response.json();
-            if (!manifest.files || !Array.isArray(manifest.files)) {
-                throw new Error('Invalid manifest format - missing files array');
-            }
-            this.markdownFiles = manifest.files;
+
+            // If we get here, no manifest was successfully loaded
+            throw new Error('Could not load manifest from any path');
         } catch (error) {
             console.error('Error loading manifest:', error);
             // Hardcode the files as fallback
@@ -86,14 +98,30 @@ class MarkdownViewer {
 
     private async loadContent(filename: string) {
         try {
-            let response = await fetch(`./guides/${filename}`);
+            // Try multiple paths for markdown files
+            let response;
+            const possiblePaths = [
+                `./guides/${filename}`,
+                `./${filename}`,
+                `/guides/${filename}`,
+                `/${filename}`
+            ];
 
-            // If not found in guides subdirectory, try the root
-            if (!response.ok) {
-                response = await fetch(`./${filename}`);
-                if (!response.ok) {
-                    throw new Error(`Failed to load content for ${filename} (status: ${response.status})`);
+            for (const path of possiblePaths) {
+                try {
+                    const res = await fetch(path);
+                    if (res.ok) {
+                        response = res;
+                        console.error(`Successfully loaded ${filename} from ${path}`);
+                        break;
+                    }
+                } catch (e) {
+                    // Continue to next path
                 }
+            }
+
+            if (!response) {
+                throw new Error(`Failed to load content for ${filename} from any path`);
             }
 
             const markdown = await response.text();

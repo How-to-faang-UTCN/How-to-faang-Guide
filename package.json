@@ -9,7 +9,8 @@
         "generate-manifest": "node --loader ts-node/esm scripts/generate-manifest.ts",
         "dev": "npm run generate-manifest && npm run build && http-server ./dist -o -c-1",
         "start": "http-server ./dist",
-        "test-ui": "npm run generate-manifest && npm run build && http-server ./dist -o -c-1"
+        "test-ui": "npm run generate-manifest && npm run build && http-server ./dist -o -c-1",
+        "netlify": "npm run generate-manifest && npm run build"
     },
     "devDependencies": {
         "@types/node": "^20.11.19",

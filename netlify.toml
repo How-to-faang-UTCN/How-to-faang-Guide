@@ -1,0 +1,16 @@
+[build]
+  command = "npm run netlify"
+  publish = "dist"
+
+# Handle 404s by serving index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Explicitly ensure the root path loads index.html
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
+  force = true 

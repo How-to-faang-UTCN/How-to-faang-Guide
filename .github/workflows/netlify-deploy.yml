@@ -54,20 +54,20 @@ jobs:
           # Use the dist directory directly for deployment
           echo "Preparing files from dist directory for deployment..."
 
-          # Create a netlify.toml file for configuration
+          # Create a netlify.toml file for configuration that doesn't redirect to guides
           cat << EOF > dist/netlify.toml
-          # Redirect all requests to index.html for SPA routing
+          # Handle 404s by serving index.html
           [[redirects]]
             from = "/*"
             to = "/index.html"
             status = 200
-            force = false
             
-          # Rewrite API requests to the correct path
+          # Explicitly disable any redirects from root to /guides/
           [[redirects]]
-            from = "/guides/*"
-            to = "/guides/:splat"
+            from = "/"
+            to = "/index.html"
             status = 200
+            force = true
           EOF
 
           # Create .nojekyll file to disable Jekyll processing
