@@ -117,8 +117,10 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./gh-pages-files
-          force_orphan: false
-          keep_files: true
+          # Use force orphan on master builds to clean up the branch
+          force_orphan: ${{ github.event_name != 'pull_request' }}
+          # For PR builds, don't override the entire branch
+          keep_files: ${{ github.event_name == 'pull_request' }}
           user_name: "github-actions[bot]"
           user_email: "github-actions[bot]@users.noreply.github.com"
           commit_message: ${{ github.event_name == 'pull_request' && format('Deploy preview for PR {0}', github.event.number) || 'Deploy to GitHub Pages' }}
@@ -138,11 +140,21 @@ jobs:
           if [ -d "pr-preview/${{ github.event.number }}" ]; then
             echo "Contents of PR preview directory:"
             ls -la pr-preview/${{ github.event.number }}
+            echo "Contents of guides directory in PR preview:"
+            ls -la pr-preview/${{ github.event.number }}/guides || echo "Guides directory does not exist in PR preview"
           else
             echo "PR preview directory does not exist"
           fi
           # Return to the original branch
           git checkout -
+
+      # Add a delay to allow GitHub Pages to propagate changes
+      - name: Wait for GitHub Pages to propagate
+        run: |
+          echo "Waiting for GitHub Pages to propagate changes..."
+          sleep 30
+          echo "Finished waiting. The preview should be available now."
+          echo "Preview URL: https://how-to-faang-utcn.github.io/How-to-faang-Guide/pr-preview/${{ github.event.number }}/"
 
       # Comment on the PR with the preview link
       - name: Find Comment
