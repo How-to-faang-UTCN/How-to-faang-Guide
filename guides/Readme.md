@@ -20,13 +20,18 @@ We present both generic and company-specific info, as well as **recent real life
 ## Table of Contents
 - [Why Faang?]()
     - [Pros & Cons]()
-    - [FAANG engineers rejected by local companies]()
+    - [FAANG interns rejected by local companies]()
+    - [Mandatory motivational speech]()
 - [How to Faang from UTCN]()
     - [CV / Application Screening]()
     - [Online Assessments (OA)]()
     - [Interviews (Technical / Behavioral)]()
-    - [Successful Planning]()
+    - [Receiving the offer (Important)]()
+- [Successful Planning]()
+- [Flexing your offer (aura farming techniques)]()
+- [FAANG companies by species]()
 - [Specific Companies]()
+- [Getting into FAANG after college]()
 - [Additional Resources]()
 
 ---
@@ -54,14 +59,29 @@ Of course, life is not perfect and neither is FAANG, so below are the main cons 
 ### Mixed
   - Relocations, can be both a disadvantage or an advantage, depending on what you want from life. If you want to be near your family and friends, being forced to move into another city might be quite a big issue. At the same time if you want to stay far away from your "family and friends", moving to another city might be quite a big bonus. Despite this, there are companies which [allow 100% remote work](https://www.levels.fyi/remote/), so there are virtually no drawbacks no matter your circumstances.
 
-### Faang interns getting rejected at local companies (stories)
-One interesting thing is that most FAANG interns we spoke to have been rejected at local companies, such as Bosch, Continental and so on, on the ground of not being good enough. So at this point, it is very likely that if you were rejected by a lot of companies, you might as well apply to FAANG since it is easier in many ways to get in. Ironically, in one case, an individual who has applied to 5 Faangs, 50 local companeis and 3 foreign companies, has passed screening only at Google, Microsoft and a company from Germany.
+### FAANG interns getting rejected at local companies
+One interesting phenomena is that many of the FAANG interns who contributed to this guide or we spoke to have been rejected, both for internships and jobs by local companies, with the same CV that got them into FAANG. We are not going to name the companies, but their salary range for interns ranged between 150-500 euro / month, the seniors were expected to have 10 years of experience to get 4000 euro / month before taxes, which means somewhere about 2500 euro / month. This rejection also happened to individuals who were previously and tried to apply to local companies after their internship has ended. 
 
+In one particular instance, a student at the beginning of the third year to applied to about 50 jobs/internships in Romania, 6 other in Europe, 3 of which were FAANG companies. All the 50 companies rejected him at screening phase, while 2 FAANG companies as well as a German company sent him online assesments. He now has an internship Google, despite being rejected by every single one of the Romanian companies. 
+
+In another case, the companies who were supposed to hire students at a local job shop, seemed to take pride in bragging how many applicants they have each time they open a job and how none of them has any chance basically. Showing them your CV leads to a complete dismissal of you as a person and any kind of value you could have because they have "THOUSANDS OF APPLICANTS". This, again, happened to an individual who now has an internship at Google.
+
+The only logical moral of the story seems to be that you need at least 2 FAANG internships to even be considered by local companies and be paid 10 times less. So I guess that is a pro too ? 
+
+### Mandatory motivational speech
+Perhaps after skimming through this guide you still think that it is unthinkable to apply to FAANG and you stand no chance. But life isn't only made only of the current moment nor the current year. These companies have things they value and there is a way to achieve each one of those things and make them want you **with time** and **desire**. And we are here to help. The reason we made this guide is to maximize the number of people getting into prestigious positions and break this cycle of apathy, low expectations and lack of ambition who puts everyone down. People have potential, dreams, autonomy and can achieve great things with their lives and there is no reason to believe otherwise.
+
+As the stories above suggest, one man's trash is another man's gold. Truth is many local companies are have a badly calibrated moral compass, which can be demoralizing and destroy confidence and hopes without any good reason. See through these things and understand truth for yourself. **The world will ask you who you are, and if you do not know, the world will tell you**.
+
+If you truly want it, go for it and if you don't know, figure it out. But in the meantime we will be here to help with any decision you will take, whatever that may be. 
+
+<!--
 Bullet points to follow
 - **Definition and scope:** What is Faang, why it matters
 - **Why choose Faang:** Benefits, opportunities, and challenges
 - **Overview:** Pathways into Faang (including Faang classic, hedge funds, and other large tech firms)
 - **Stories:** People need to know how messed up the other companies are
+-->
 
 ## How to Faang from UTCN (or any Romanian uni)
 
@@ -106,7 +126,10 @@ Discussing each part of how to apply to FAANG in more depth
 
 ---
 
-## Companies info
+## Species of FAANG companies
+The following are the "species" of FAANG you can expect to find in the wild zoo of the tech world. 
+
+## Specific companies
 I think these should be put in their separate README files in the repository
 - **MSFT**
 - **Google**
