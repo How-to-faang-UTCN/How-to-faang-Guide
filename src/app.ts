@@ -86,10 +86,16 @@ class MarkdownViewer {
             .replace(/\*(.*?)\*/g, '<em>$1</em>')
             .replace(/`(.*?)`/g, '<code>$1</code>')
             .replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>')
-            .replace(/\n/g, '<br>')
-            .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>')
-            .replace(/^\s*[-*]\s+(.*$)/gm, '<li>$1</li>')
-            .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
+            .replace(/\n/g, '<br>');
+
+        // Handle unordered lists with proper nesting
+        html = html.replace(/^\s*[-*]\s+(.*$)/gm, '<li>$1</li>');
+
+        // Group consecutive list items into lists
+        html = html.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
+
+        // Handle links last to avoid conflicts with other replacements
+        html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
 
         this.contentContainer.innerHTML = html;
     }

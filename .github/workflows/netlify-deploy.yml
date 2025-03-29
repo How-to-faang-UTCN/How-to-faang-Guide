@@ -33,14 +33,23 @@ jobs:
           mkdir -p build
 
           # Copy all necessary files
-          cp src/index.html build/
-          cp src/styles.css build/
-          cp dist/app.js build/
-          cp -r guides build/
+          cp src/index.html build/index.html
+          cp src/styles.css build/styles.css
+
+          # Copy TypeScript build output
+          if [ -f "dist/app.js" ]; then
+            cp dist/app.js build/app.js
+          fi
+
+          # Ensure guides directory exists and copy all markdown files
+          mkdir -p build/guides
+          cp -r guides/*.md build/guides/
+          cp guides/manifest.json build/guides/
 
           # Copy utils directory if it exists
           if [ -d "dist/utils" ]; then
-            cp -r dist/utils build/
+            mkdir -p build/utils
+            cp -r dist/utils/* build/utils/
           fi
 
           # Create .nojekyll file to disable Jekyll processing
@@ -48,9 +57,17 @@ jobs:
 
           # Create a netlify.toml file for configuration
           cat << EOF > build/netlify.toml
+          # Redirect all requests to index.html for SPA routing
           [[redirects]]
             from = "/*"
             to = "/index.html"
+            status = 200
+            force = false
+            
+          # Rewrite API requests to the correct path
+          [[redirects]]
+            from = "/guides/*"
+            to = "/guides/:splat"
             status = 200
           EOF
 
@@ -61,6 +78,10 @@ jobs:
             echo "🔍 Preparing PREVIEW deployment to Netlify for PR #${{ github.event.number }}"
           fi
 
+          # Show deployment structure
+          echo "Deployment directory structure:"
+          find build -type f | sort
+
       # Deploy to Netlify
       - name: Deploy to Netlify
         id: netlify-deploy
@@ -69,7 +90,7 @@ jobs:
           publish-dir: "./build"
           production-branch: master
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: ${{ github.event_name == 'push' && 'Production deployment from master' || format('Preview deployment for PR #{0}', github.event.number) }}
+          deploy-message: ${{ github.event_name == 'push' && 'Production deployment from master' || format('Preview deployment for PR {0}', github.event.number) }}
           enable-pull-request-comment: true
           enable-commit-comment: true
           overwrites-pull-request-comment: true
