@@ -65,17 +65,31 @@ jobs:
         run: |
           PR_NUMBER=${{ github.event.number }}
           mkdir -p gh-pages-files/pr-preview/$PR_NUMBER
-          # Copy files to the PR preview directory but exclude the pr-preview directory itself
-          cp -r gh-pages-files/index.html gh-pages-files/guides gh-pages-files/.nojekyll gh-pages-files/pr-preview/$PR_NUMBER/
+
+          # Ensure guides directory exists in the PR preview
+          mkdir -p gh-pages-files/pr-preview/$PR_NUMBER/guides
+
+          # Copy all necessary files
+          cp -r gh-pages-files/.nojekyll gh-pages-files/pr-preview/$PR_NUMBER/
+          cp -r gh-pages-files/guides/* gh-pages-files/pr-preview/$PR_NUMBER/guides/
+
+          if [ -f "gh-pages-files/index.html" ]; then
+            cp gh-pages-files/index.html gh-pages-files/pr-preview/$PR_NUMBER/
+          fi
+
           if [ -f "gh-pages-files/styles.css" ]; then
             cp gh-pages-files/styles.css gh-pages-files/pr-preview/$PR_NUMBER/
           fi
+
           if [ -f "gh-pages-files/app.js" ]; then
             cp gh-pages-files/app.js gh-pages-files/pr-preview/$PR_NUMBER/
           fi
+
           if [ -d "gh-pages-files/utils" ]; then
-            cp -r gh-pages-files/utils gh-pages-files/pr-preview/$PR_NUMBER/
+            mkdir -p gh-pages-files/pr-preview/$PR_NUMBER/utils
+            cp -r gh-pages-files/utils/* gh-pages-files/pr-preview/$PR_NUMBER/utils/
           fi
+
           # Create a redirect from the PR preview root to the guides directory
           cat << EOF > gh-pages-files/pr-preview/$PR_NUMBER/index.html
           <!DOCTYPE html>
@@ -90,8 +104,12 @@ jobs:
           </body>
           </html>
           EOF
+
           echo "Preview directory created at: pr-preview/$PR_NUMBER"
+          echo "Contents of PR preview directory:"
           ls -la gh-pages-files/pr-preview/$PR_NUMBER/
+          echo "Contents of guides directory in PR preview:"
+          ls -la gh-pages-files/pr-preview/$PR_NUMBER/guides/
 
       # Deploy to GitHub Pages using the peaceiris action instead
       - name: Deploy to GitHub Pages
@@ -101,6 +119,30 @@ jobs:
           publish_dir: ./gh-pages-files
           force_orphan: false
           keep_files: true
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
+          commit_message: ${{ github.event_name == 'pull_request' && format('Deploy preview for PR {0}', github.event.number) || 'Deploy to GitHub Pages' }}
+
+      # Debug deployment
+      - name: Debug gh-pages branch
+        run: |
+          echo "Fetching gh-pages branch..."
+          git fetch origin gh-pages
+          # Create a temporary branch for viewing the gh-pages content
+          git checkout -b temp-debug-branch
+          git reset --hard origin/gh-pages
+          echo "Contents of gh-pages branch root:"
+          ls -la
+          echo "Contents of pr-preview directory (if exists):"
+          ls -la pr-preview || echo "pr-preview directory does not exist"
+          if [ -d "pr-preview/${{ github.event.number }}" ]; then
+            echo "Contents of PR preview directory:"
+            ls -la pr-preview/${{ github.event.number }}
+          else
+            echo "PR preview directory does not exist"
+          fi
+          # Return to the original branch
+          git checkout -
 
       # Comment on the PR with the preview link
       - name: Find Comment
