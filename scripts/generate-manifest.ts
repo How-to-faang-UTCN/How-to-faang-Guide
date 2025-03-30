@@ -1,192 +1,75 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-function ensureDirectoryExists(dir: string) {
-    if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-    }
-}
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-function getMarkdownFiles(dir: string): string[] {
+const guidesDir = path.join(__dirname, '..', 'guides');
+const manifestPath = path.join(guidesDir, 'manifest.json');
+
+/**
+ * Generates a manifest file containing all the markdown files in the guides directory
+ */
+async function generateManifest() {
     try {
-        // Get all files in the directory
-        const files = fs.readdirSync(dir);
+        console.log('Scanning guides directory for markdown files...');
 
-        // Filter for only .md files
-        const allMarkdownFiles = files.filter(file => file.endsWith('.md'));
+        const files = fs.readdirSync(guidesDir);
 
-        // Log what we found for debugging
-        console.log('Found markdown files:', allMarkdownFiles);
+        const markdownFiles = files.filter(file =>
+            file.endsWith('.md') &&
+            fs.statSync(path.join(guidesDir, file)).isFile()
+        );
 
-        // List of special files to prioritize at the top of the listing
-        const specialFiles = ['Readme.md', 'Open_Internships.md', 'Contribute.md'];
+        if (markdownFiles.length === 0) {
+            console.error('No markdown files found in guides directory!');
+            return;
+        }
 
-        // Separate special files from regular files
-        const priorityFiles: string[] = [];
-        const regularFiles: string[] = [];
+        console.log(`Found ${markdownFiles.length} markdown files.`);
 
-        allMarkdownFiles.forEach(file => {
-            if (specialFiles.includes(file)) {
-                // Keep the special files in their specified order
-                priorityFiles[specialFiles.indexOf(file)] = file;
-            } else {
-                regularFiles.push(file);
-            }
-        });
+        const sortedFiles = sortMarkdownFiles(markdownFiles);
 
-        // Remove undefined entries from priority files (in case any are missing)
-        const cleanPriorityFiles = priorityFiles.filter(Boolean);
+        const manifest = {
+            files: sortedFiles
+        };
 
-        // Sort regular files alphabetically
-        regularFiles.sort();
+        fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
 
-        // Combine the files with priority files first
-        const result = [...cleanPriorityFiles, ...regularFiles];
-        console.log('Final markdown files list:', result);
-        return result;
+        console.log(`Successfully created manifest with ${sortedFiles.length} files.`);
+        console.log('Manifest saved to:', manifestPath);
+        console.log('Files included:', sortedFiles);
     } catch (error) {
-        console.error('Error reading directory:', error);
-        return ['Readme.md'];
+        console.error('Error generating manifest:', error);
     }
 }
 
-function createDefaultReadme(dir: string) {
-    const defaultContent = `# Welcome to UTCN FAANG Internship Guide
+/**
+ * Sort markdown files to ensure a consistent order
+ * @param files Array of filenames
+ * @returns Sorted array of filenames
+ */
+function sortMarkdownFiles(files: string[]): string[] {
+    const priorityFiles = [
+        'Readme.md',
+        'Open_Internships.md',
+        'Contribute.md'
+    ];
 
-This guide provides comprehensive information about internship opportunities at top tech companies.
+    return files.sort((a, b) => {
+        const aPriority = priorityFiles.indexOf(a);
+        const bPriority = priorityFiles.indexOf(b);
 
-## Overview
-
-This guide covers internship opportunities at:
-- Google
-- Amazon
-- Microsoft
-- Meta
-- Apple
-- Netflix
-- And other top tech companies
-
-Select a tab above to learn more about specific companies and their internship programs.`;
-
-    fs.writeFileSync(path.join(dir, 'Readme.md'), defaultContent);
-}
-
-function createContributeGuide(dir: string) {
-    const content = `# Contribute to UTCN FAANG Guide
-
-We welcome contributions to this guide! This is a community-driven project aimed at helping UTCN students navigate their path to top tech companies.
-
-## How to Contribute
-
-1. Visit our [GitHub repository](https://github.com/How-to-faang-UTCN/How-to-faang-Guide)
-2. Fork the repository
-3. Make your changes
-4. Submit a pull request
-
-## Get in Touch
-
-Feel free to reach out to any of the contributors listed on our GitHub repository. We're always happy to:
-- Answer questions
-- Review contributions
-- Discuss improvements
-- Share experiences
-
-## Current Contributors
-
-Check out our [GitHub repository](https://github.com/How-to-faang-UTCN/How-to-faang-Guide) to see the current list of contributors and get in touch with them.`;
-
-    fs.writeFileSync(path.join(dir, 'Contribute.md'), content);
-}
-
-function createDefaultContent(dir: string, filename: string) {
-    const defaultContent = `# ${filename.replace('.md', '')}
-
-This guide is currently under construction. We're looking for contributors to help us build this guide!
-
-## Want to Help?
-
-Visit our [GitHub repository](https://github.com/How-to-faang-UTCN/How-to-faang-Guide) to contribute to this guide. We welcome any help in making this resource better for UTCN students!`;
-
-    fs.writeFileSync(path.join(dir, filename), defaultContent);
-}
-
-function main() {
-    const guidesDir = path.join(process.cwd(), 'guides');
-
-    // Make sure the guides directory exists
-    ensureDirectoryExists(guidesDir);
-
-    // Get all markdown files from the guides directory
-    const markdownFiles = getMarkdownFiles(guidesDir);
-
-    // Create default Readme.md if it doesn't exist
-    if (!fs.existsSync(path.join(guidesDir, 'Readme.md'))) {
-        createDefaultReadme(guidesDir);
-    }
-
-    // Create Contribute.md if it doesn't exist
-    if (!fs.existsSync(path.join(guidesDir, 'Contribute.md'))) {
-        createContributeGuide(guidesDir);
-    }
-
-    // Create Open_Internships.md if it doesn't exist
-    if (!fs.existsSync(path.join(guidesDir, 'Open_Internships.md'))) {
-        // Create a default internships file
-        const defaultInternships = `# Open Internships
-
-This page lists currently open internship opportunities at top tech companies.
-
-## Internship Listings
-
-Check back soon for updated listings!
-
-## Resources for Finding Internships
-
-- [LinkedIn Jobs](https://www.linkedin.com/jobs/)
-- [Indeed](https://www.indeed.com/)
-- [Glassdoor](https://www.glassdoor.com/)
-- [Company career pages](https://careers.google.com/students/)`;
-
-        fs.writeFileSync(path.join(guidesDir, 'Open_Internships.md'), defaultInternships);
-    }
-
-    // Create default content for company guides that don't exist
-    const commonCompanies = ['Google_Guide.md', 'Amazon_Guide.md', 'Microsoft_Guide.md',
-        'Bloomberg_Guide.md', 'Jane_Street_Guide.md', 'Optiver_Guide.md'];
-
-    commonCompanies.forEach(file => {
-        const filePath = path.join(guidesDir, file);
-        if (!fs.existsSync(filePath) || fs.readFileSync(filePath, 'utf-8').trim() === '') {
-            createDefaultContent(guidesDir, file);
+        if (aPriority !== -1 && bPriority !== -1) {
+            return aPriority - bPriority;
         }
+
+        if (aPriority !== -1) return -1;
+        if (bPriority !== -1) return 1;
+
+        return a.localeCompare(b);
     });
-
-    // Make sure all markdown files exist and have content
-    markdownFiles.forEach(file => {
-        const filePath = path.join(guidesDir, file);
-        if (!fs.existsSync(filePath) || fs.readFileSync(filePath, 'utf-8').trim() === '') {
-            createDefaultContent(guidesDir, file);
-        }
-    });
-
-    // Create the manifest with all markdown files
-    const manifest = {
-        files: markdownFiles
-    };
-
-    // Write manifest to the guides directory
-    fs.writeFileSync(
-        path.join(guidesDir, 'manifest.json'),
-        JSON.stringify(manifest, null, 2)
-    );
-
-    // Create a backup of the manifest file
-    fs.writeFileSync(
-        path.join(guidesDir, 'manifest.json.bak'),
-        JSON.stringify(manifest, null, 2)
-    );
-
-    console.log('Manifest generated successfully with files:', markdownFiles);
 }
 
-main();
+generateManifest();

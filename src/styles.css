@@ -1,143 +1,151 @@
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
+:root {
+    --primary-color: #0077cc;
+    --hover-color: #005fa3;
+    --background-color: #f5f5f5;
+    --text-color: #333;
+    --border-color: #ddd;
+    --content-bg: #fff;
 }
 
-.container {
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+}
+
+.app-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
-.main-title {
-    color: #333;
-    text-align: center;
-    margin-bottom: 30px;
+header {
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
 }
 
-.tabs {
+h1 {
+    color: var(--primary-color);
+    margin-top: 0;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.tabs-container {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+    gap: 5px;
 }
 
 .tab-button {
-    background: #f1f1f1;
-    border: none;
-    outline: none;
+    background: var(--content-bg);
+    border: 1px solid var(--border-color);
+    padding: 8px 15px;
     cursor: pointer;
-    padding: 10px 20px;
-    margin-right: 5px;
-    font-size: 16px;
-    border-radius: 5px 5px 0 0;
+    border-radius: 4px 4px 0 0;
+    font-weight: 500;
+    transition: background-color 0.2s;
 }
 
 .tab-button:hover {
-    background-color: #ddd;
+    background-color: #eaeaea;
 }
 
 .tab-button.active {
-    background-color: #3498db;
+    background-color: var(--primary-color);
     color: white;
+    border-color: var(--primary-color);
 }
 
-.content {
-    background: white;
+.content-container {
+    background: var(--content-bg);
+    border: 1px solid var(--border-color);
     padding: 20px;
-    border-radius: 0 5px 5px 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-/* Markdown styling */
-.content h1,
-.content h2,
-.content h3,
-.content h4,
-.content h5,
-.content h6 {
+/* Markdown content styling */
+.content-container h1,
+.content-container h2,
+.content-container h3 {
+    color: var(--primary-color);
     margin-top: 1.5em;
     margin-bottom: 0.5em;
-    color: #333;
 }
 
-.content h1 {
-    font-size: 2em;
+.content-container h1:first-child,
+.content-container h2:first-child,
+.content-container h3:first-child {
+    margin-top: 0;
 }
 
-.content h2 {
-    font-size: 1.75em;
+.content-container ul,
+.content-container ol {
+    padding-left: 20px;
 }
 
-.content h3 {
-    font-size: 1.5em;
+.content-container li {
+    margin-bottom: 5px;
 }
 
-.content h4 {
-    font-size: 1.25em;
-}
-
-.content h5 {
-    font-size: 1em;
-}
-
-.content h6 {
-    font-size: 0.85em;
-}
-
-.content ul,
-.content ol {
-    padding-left: 2em;
-}
-
-.content ul ul,
-.content ol ol {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-}
-
-.content li {
-    margin-bottom: 0.5em;
-}
-
-.content li:last-child {
-    margin-bottom: 0;
-}
-
-.content a {
-    color: #3498db;
+.content-container a {
+    color: var(--primary-color);
     text-decoration: none;
 }
 
-.content a:hover {
+.content-container a:hover {
     text-decoration: underline;
 }
 
-.content code {
-    background-color: #f5f5f5;
-    padding: 2px 4px;
+.content-container pre,
+.content-container code {
+    background-color: #f6f8fa;
     border-radius: 3px;
-    font-family: monospace;
+    padding: 2px 5px;
+    font-family: 'Courier New', Courier, monospace;
 }
 
-.content pre {
-    background-color: #f5f5f5;
+.content-container pre {
     padding: 10px;
-    border-radius: 5px;
     overflow-x: auto;
 }
 
 .error-message {
-    padding: 20px;
-    background-color: #ffeeee;
-    border-left: 5px solid #ff5555;
-    color: #333;
+    color: #d32f2f;
+    background-color: #ffebee;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 5px solid #d32f2f;
+    margin-bottom: 20px;
 }
 
-.error-message h2 {
-    color: #ff5555;
-    margin-top: 0;
+@media (max-width: 768px) {
+    .app-container {
+        padding: 10px;
+    }
+
+    .tabs-container {
+        overflow-x: auto;
+        white-space: nowrap;
+        display: block;
+        scrollbar-width: thin;
+    }
+
+    .tab-button {
+        display: inline-block;
+        margin-right: 2px;
+    }
+
+    .content-container {
+        padding: 15px;
+    }
 }
