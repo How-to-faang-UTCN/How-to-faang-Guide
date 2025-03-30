@@ -1,37 +1,59 @@
-export function createMockResponse(status: number, data: any, contentType = 'application/json'): Response {
-    const body = contentType === 'application/json'
-        ? JSON.stringify(data)
-        : (typeof data === 'string' ? data : JSON.stringify(data));
+// Mock Response class for tests since jsdom doesn't include this
+class MockResponse {
+    public status: number;
+    public ok: boolean;
+    public headers: Headers;
+    private bodyContent: string;
 
-    const response = {
-        status,
-        ok: status >= 200 && status < 300,
-        headers: new Headers({
-            'Content-Type': contentType
-        }),
-        text: jest.fn().mockResolvedValue(body),
-        json: jest.fn().mockResolvedValue(data)
-    } as unknown as Response;
+    constructor(body: string | null, options: { status?: number, headers?: Record<string, string>, statusText?: string } = {}) {
+        this.status = options.status || 200;
+        this.ok = this.status >= 200 && this.status < 300;
+        this.headers = new Headers(options.headers || {});
+        this.bodyContent = body || '';
+    }
 
-    return response;
+    text() {
+        return Promise.resolve(this.bodyContent);
+    }
+
+    json() {
+        try {
+            return Promise.resolve(JSON.parse(this.bodyContent));
+        } catch (e) {
+            return Promise.reject(new Error('Failed to parse JSON'));
+        }
+    }
 }
 
-export function setupFetchMock(mockResponses: Record<string, Response>): void {
-    global.fetch = jest.fn((url: string) => {
-        const mockUrl = Object.keys(mockResponses).find(mockUrl =>
-            url === mockUrl || url.endsWith(mockUrl)
-        );
+export function createMockResponse(status: number, data: any, contentType = 'application/json') {
+    const body = contentType.includes('json') ? JSON.stringify(data) : data;
 
-        if (mockUrl) {
-            return Promise.resolve(mockResponses[mockUrl]);
+    return new MockResponse(body, {
+        status,
+        headers: {
+            'Content-Type': contentType
+        }
+    }) as unknown as Response;
+}
+
+export function setupFetchMock(mockResponses: Record<string, Response>) {
+    // @ts-ignore: Overriding fetch for tests
+    global.fetch = jest.fn((url: string) => {
+        console.log(`Mock fetch called with: ${url}`);
+
+        if (url in mockResponses) {
+            return Promise.resolve(mockResponses[url]);
         }
 
-        return Promise.resolve(createMockResponse(404, { error: 'Not Found' }));
-    }) as jest.Mock;
+        return Promise.resolve(
+            new MockResponse(null, { status: 404, statusText: 'Not Found' }) as unknown as Response
+        );
+    });
 }
 
-export function resetFetchMock(): void {
-    global.fetch = undefined as any;
+export function resetFetchMock() {
+    // @ts-ignore: Cleaning up fetch mock
+    global.fetch.mockClear();
 }
 
 declare global {
@@ -40,4 +62,29 @@ declare global {
             fetch: any;
         }
     }
-} 
+}
+
+// Add a test to prevent Jest from complaining
+describe('fetchMock', () => {
+    test('createMockResponse should create a valid response object', () => {
+        const response = createMockResponse(200, { test: 'data' });
+        expect(response.status).toBe(200);
+        expect(response.ok).toBe(true);
+
+        // Test text response
+        const textResponse = createMockResponse(201, 'Hello world', 'text/plain');
+        expect(textResponse.status).toBe(201);
+        expect(textResponse.headers.get('Content-Type')).toBe('text/plain');
+    });
+
+    test('setupFetchMock should override global fetch', () => {
+        const mockResponses = {
+            '/test': createMockResponse(200, { success: true })
+        };
+
+        setupFetchMock(mockResponses);
+
+        // @ts-ignore: Using mocked fetch
+        expect(global.fetch).toBeDefined();
+    });
+}); 

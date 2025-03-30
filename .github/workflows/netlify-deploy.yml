@@ -8,7 +8,7 @@ on:
     types: [opened, reopened, synchronize]
 
 jobs:
-  build-and-deploy:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -17,9 +17,36 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18"
+          cache: "npm"
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          echo "Checking package.json for ts-loader version"
+          grep -F "ts-loader" package.json || echo "ts-loader not found"
+          npm install
+
+      - name: Run tests
+        run: |
+          echo "Running tests..."
+          npm test
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: |
+          echo "Checking package.json for ts-loader version"
+          grep -F "ts-loader" package.json || echo "ts-loader not found"
+          npm install
 
       - name: Generate manifest
         run: |

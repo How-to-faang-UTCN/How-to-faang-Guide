@@ -44,14 +44,15 @@ describe('fetch-dependent functions', () => {
         test('should return the first successful response', async () => {
             const mockResponses = {
                 '/path1.txt': createMockResponse(404, 'Not found'),
-                '/path2.txt': createMockResponse(200, 'File content')
+                '/path2.txt': createMockResponse(200, 'File content', 'text/plain')
             };
             setupFetchMock(mockResponses);
 
             const result = await fetchFileFromPaths(['/path1.txt', '/path2.txt', '/path3.txt']);
             expect(result).not.toBeNull();
             expect(result?.ok).toBe(true);
-            expect(await result?.text()).toBe('File content');
+            const text = await result?.text();
+            expect(text).toBe('File content');
         });
 
         test('should return null if all paths fail', async () => {
@@ -73,7 +74,7 @@ describe('fetch-dependent functions', () => {
             };
             const mockResponses = {
                 '/manifest.json': createMockResponse(404, 'Not found'),
-                '/guides/manifest.json': createMockResponse(200, mockManifest)
+                '/guides/manifest.json': createMockResponse(200, mockManifest, 'application/json')
             };
             setupFetchMock(mockResponses);
 
@@ -85,7 +86,7 @@ describe('fetch-dependent functions', () => {
         test('should return null if no valid manifest is found', async () => {
             const mockResponses = {
                 '/manifest.json': createMockResponse(404, 'Not found'),
-                '/guides/manifest.json': createMockResponse(200, { notFiles: [] }) // Invalid format
+                '/guides/manifest.json': createMockResponse(200, { notFiles: [] }, 'application/json') // Invalid format
             };
             setupFetchMock(mockResponses);
 
@@ -98,7 +99,7 @@ describe('fetch-dependent functions', () => {
         test('should return content from the first valid path', async () => {
             const mockContent = '# Markdown Content';
             const mockResponses = {
-                '/guides/Readme.md': createMockResponse(200, mockContent, 'text/markdown')
+                '/guides/Readme.md': createMockResponse(200, mockContent, 'text/plain')
             };
             setupFetchMock(mockResponses);
 
