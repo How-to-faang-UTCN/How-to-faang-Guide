@@ -55,9 +55,13 @@ This section is dedicated to Jane Street’s unique approach to coding challenge
 - Prioritize code quality and readability over overly optimized but less clear solutions.
 - **Note:** Avoid using languages like OCaml merely to impress—the goal is clarity and effectiveness in solving the problem.
 
-## Recommended Strategy
+## Recommendations
 - **KEEP COOL:** Despite their intimidating aura, their problems are not that hard. Once you get to the interview stage, be confident in your abilities and don't lose your head. They wouldn't have given you an interview if they didn't think you were up to the challenge.
 - **Diversified Practice:** Solve as many problems as possible, from different sources. Do not focus on Leetcode only (even their Jane Street problem list is innacurate in my opinion). Their problems are not something that you will find elsewhere, so don't try to memorise solutions.
 - **Mock interview:** Convince your most cracked friend to interview you and try to stump and overload you. Jane Street will put you to the test, so make sure you keep cool under pressure.
 - **Be Prepared:** They move quickly and might contact you unexpectedly (see [Application Submission](#application-submission) section). Stay consistently prepared and ready to interview at short notice.
 - **Focus Your Preparation:** Do **NOT** spend excessive time on high-level system design, design patterns, and networking as they are  rarely part of the Jane Street internship hiring process. **Some** language questions might come up if the interviewer knows the language you are using.
+
+## Company insights
+
+[Content to be added]

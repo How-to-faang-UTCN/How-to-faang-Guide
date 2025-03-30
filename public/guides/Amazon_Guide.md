@@ -48,7 +48,7 @@ Amazon’s hiring process for SWE internships is streamlined and similar to othe
 ### Response Timeline
 - Amazon typically provides a response within 5 days post-interview. In cases of wait-listing, updates may take longer.
 
-## Recommended Strategy
+## Recommendations
 
 - **Build a Strong CV:**  
   - Ensure it’s concise and eye-catching.  
@@ -62,3 +62,7 @@ Amazon’s hiring process for SWE internships is streamlined and similar to othe
   - Incorporate them into your behavioral responses; they’re more than just buzzwords.
 - **Focus Your Preparation:**  
   - Do **NOT** spend excessive time on system design, design patterns, or language-specific questions—they are rarely part of the Amazon internship hiring process.
+
+## Company insights
+
+[Content to be added]
