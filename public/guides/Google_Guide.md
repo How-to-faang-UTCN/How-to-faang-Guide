@@ -9,7 +9,7 @@ This guide covers:
 2. Other internship opportunities
 3. Tips for securing return offers
 
-### Why Choose google?
+### Why Choose Google?
 - **Impactful Projects:** Interns work on real products that reach billions, from Search to Android to Cloud.
 - **STEP Program:** Unique to Google, STEP offers tailored support for early-year students, focusing on growth and potential.
 - **Mentorship-Driven:** Internships emphasize strong mentorship, feedback, and personal development.
@@ -29,7 +29,7 @@ This guide covers:
 **3. Intern Placement Interview Stage (Project Placement)**
 
 #### Application Submission
-- You can find succesful cv's [here](./CV_Templates).
+- You can find successful CVs [here](./CV_Templates).
 
 #### Online Assessment
 - This round consists of 2 easy-medium (mostly easy) leetcode style questions.
@@ -106,4 +106,4 @@ NOTE: They do not make a decision directly. They write down what they remember a
   - Berlin
   - Milano
 
-Note: Big offices are generally reliable but have seen decreasing intern positions over the years. Other than Warsaw & Krakow lately, the Zurich, London, and Munich offices have seen a huge decrease in interns.
+Note: Big offices are generally reliable but have seen decreasing intern positions over the years. Other than Warsaw & Krakow lately, the Zurich, London, and Munich offices have seen a huge decrease in interns. Keep in mind that in High-Hiring offices you have better chances to get a position, if you are in Intern Placement Interview stage.
