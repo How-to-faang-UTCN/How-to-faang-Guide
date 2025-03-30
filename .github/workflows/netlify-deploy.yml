@@ -13,27 +13,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup TypeScript
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "18"
 
       - name: Install dependencies
         run: npm install
-
-      - name: Build TypeScript
-        run: |
-          echo "Building TypeScript files..."
-          npx tsc
-          echo "TypeScript build complete. Checking output files:"
-          ls -la dist/
-
-          if [ -f "dist/app.js" ]; then
-            echo "✅ app.js was built successfully"
-          else
-            echo "❌ app.js was not built! Checking TypeScript config..."
-            cat tsconfig.json || echo "tsconfig.json not found!"
-          fi
 
       - name: Generate manifest
         run: |
@@ -42,9 +28,9 @@ jobs:
           echo "Generated manifest content:"
           cat guides/manifest.json
 
-      - name: Build project
+      - name: Build project with webpack
         run: |
-          echo "Building project using npm run build..."
+          echo "Building project using webpack..."
           npm run build
           echo "Build completed. Checking output files:"
           ls -la dist/
