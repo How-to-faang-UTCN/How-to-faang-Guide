@@ -1,7 +1,14 @@
-interface Tab {
-    file: string;
-    label: string;
-}
+import {
+    extractFilenamesFromHtml,
+    renderMarkdown,
+    sortMarkdownFiles
+} from './markdownUtils';
+import {
+    fetchManifest,
+    loadMarkdownContent,
+    getCommonMarkdownFiles,
+    filenameToDisplayName
+} from './fileUtils';
 
 class MarkdownViewer {
     private tabsContainer: HTMLElement;
@@ -12,7 +19,6 @@ class MarkdownViewer {
     constructor() {
         this.tabsContainer = document.getElementById('tabs')!;
         this.contentContainer = document.getElementById('content')!;
-        // Get the base path from the current URL
         this.basePath = window.location.pathname.endsWith('/')
             ? window.location.pathname.slice(0, -1)
             : window.location.pathname;
@@ -32,51 +38,61 @@ class MarkdownViewer {
 
     private async detectMarkdownFiles() {
         try {
-            // Try multiple path patterns to find the manifest
-            let manifest;
-            const possiblePaths = [
-                './manifest.json',
-                './guides/manifest.json',
-                '/manifest.json',
-                '/guides/manifest.json'
-            ];
-
-            // Try each path until we get a successful response
-            for (const path of possiblePaths) {
-                try {
-                    const response = await fetch(path);
-                    if (response.ok) {
-                        manifest = await response.json();
-                        console.error(`Successfully loaded manifest from ${path}`);
-                        break;
-                    }
-                } catch (e) {
-                    // Continue to next path
-                }
-            }
-
-            // If we found a manifest and it has the right format
-            if (manifest && manifest.files && Array.isArray(manifest.files)) {
+            // Try to fetch the manifest
+            const manifest = await fetchManifest();
+            if (manifest) {
                 this.markdownFiles = manifest.files;
                 return;
             }
 
-            // If we get here, no manifest was successfully loaded
-            throw new Error('Could not load manifest from any path');
+            // If manifest fails, try directory listing
+            await this.detectFilesDirectly();
         } catch (error) {
             console.error('Error loading manifest:', error);
-            // Hardcode the files as fallback
-            this.markdownFiles = [
-                'Readme.md',
-                'Open_Internships.md',
-                'Contribute.md',
-                'Amazon_Guide.md',
-                'Bloomberg_Guide.md',
-                'Google_Guide.md',
-                'Jane_Street_Guide.md',
-                'Microsoft_Guide.md',
-                'Optiver_Guide.md'
-            ];
+            await this.detectFilesDirectly();
+        }
+    }
+
+    private async detectFilesDirectly() {
+        console.error('Trying to detect markdown files directly...');
+        try {
+            // Try to fetch directory listing
+            const guidesResponse = await fetch('./guides/');
+            if (guidesResponse.ok) {
+                const html = await guidesResponse.text();
+                // Extract filenames from directory listing HTML
+                const mdFiles = extractFilenamesFromHtml(html);
+                if (mdFiles.length > 0) {
+                    console.error(`Found ${mdFiles.length} markdown files directly.`);
+                    this.markdownFiles = sortMarkdownFiles(mdFiles);
+                    return;
+                }
+            }
+
+            // If we couldn't get the directory listing, try fetching some common files directly
+            console.error('Trying common markdown files...');
+            const commonFiles = getCommonMarkdownFiles();
+            const foundFiles = [];
+
+            for (const file of commonFiles) {
+                const content = await loadMarkdownContent(file);
+                if (content) {
+                    foundFiles.push(file);
+                }
+            }
+
+            if (foundFiles.length > 0) {
+                console.error(`Found ${foundFiles.length} markdown files by direct check.`);
+                this.markdownFiles = sortMarkdownFiles(foundFiles);
+                return;
+            }
+
+            // Last resort: show error to user
+            console.error('Could not find any markdown files.');
+            this.showError('Failed to load guides. Please check your network connection and try again.');
+        } catch (e) {
+            console.error('Error detecting files directly:', e);
+            this.showError('Failed to load guides. Please try again later.');
         }
     }
 
@@ -84,11 +100,11 @@ class MarkdownViewer {
         this.tabsContainer.innerHTML = '';
 
         this.markdownFiles.forEach(file => {
-            const tabName = file.replace('.md', '').replace(/_/g, ' ');
+            const tabName = filenameToDisplayName(file);
 
             const button = document.createElement('button');
             button.className = 'tab-button';
-            button.textContent = tabName === 'Readme' ? 'Overview' : tabName;
+            button.textContent = tabName;
             button.dataset.file = file;
             button.onclick = () => this.loadContent(file);
 
@@ -98,34 +114,12 @@ class MarkdownViewer {
 
     private async loadContent(filename: string) {
         try {
-            // Try multiple paths for markdown files
-            let response;
-            const possiblePaths = [
-                `./guides/${filename}`,
-                `./${filename}`,
-                `/guides/${filename}`,
-                `/${filename}`
-            ];
-
-            for (const path of possiblePaths) {
-                try {
-                    const res = await fetch(path);
-                    if (res.ok) {
-                        response = res;
-                        console.error(`Successfully loaded ${filename} from ${path}`);
-                        break;
-                    }
-                } catch (e) {
-                    // Continue to next path
-                }
-            }
-
-            if (!response) {
+            const markdown = await loadMarkdownContent(filename);
+            if (!markdown) {
                 throw new Error(`Failed to load content for ${filename} from any path`);
             }
 
-            const markdown = await response.text();
-            this.renderMarkdown(markdown);
+            this.contentContainer.innerHTML = renderMarkdown(markdown);
             this.updateActiveTab(filename);
         } catch (error) {
             console.error('Error loading content:', error);
@@ -133,67 +127,11 @@ class MarkdownViewer {
         }
     }
 
-    private renderMarkdown(markdown: string) {
-        // Process the markdown in steps
-        let html = markdown
-            .replace(/^# (.*$)/gm, '<h1>$1</h1>')
-            .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-            .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-            .replace(/^#### (.*$)/gm, '<h4>$1</h4>')
-            .replace(/^##### (.*$)/gm, '<h5>$1</h5>')
-            .replace(/^###### (.*$)/gm, '<h6>$1</h6>')
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            .replace(/`(.*?)`/g, '<code>$1</code>')
-            .replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>');
-
-        // Handle line breaks
-        const lines = html.split('\n');
-
-        // Process lists
-        let inList = false;
-        let listHtml = '';
-        let resultHtml = '';
-
-        lines.forEach(line => {
-            const listItemMatch = line.match(/^\s*[-*]\s+(.*)/);
-
-            if (listItemMatch) {
-                if (!inList) {
-                    inList = true;
-                    listHtml = '<ul>';
-                }
-                listHtml += `<li>${listItemMatch[1]}</li>`;
-            } else {
-                if (inList) {
-                    inList = false;
-                    listHtml += '</ul>';
-                    resultHtml += listHtml;
-                    listHtml = '';
-                }
-                resultHtml += line + '<br>';
-            }
-        });
-
-        // If we were still in a list at the end
-        if (inList) {
-            listHtml += '</ul>';
-            resultHtml += listHtml;
-        }
-
-        // Handle links last to avoid conflicts
-        resultHtml = resultHtml.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
-
-        this.contentContainer.innerHTML = resultHtml;
-    }
-
     private updateActiveTab(filename: string) {
         const buttons = this.tabsContainer.getElementsByClassName('tab-button');
         Array.from(buttons).forEach(button => {
             button.classList.remove('active');
-            const buttonText = button.textContent;
-            const filenameText = filename.replace('.md', '').replace(/_/g, ' ');
-            if ((buttonText === 'Overview' && filenameText === 'Readme') || buttonText === filenameText) {
+            if ((button as HTMLElement).dataset.file === filename) {
                 button.classList.add('active');
             }
         });

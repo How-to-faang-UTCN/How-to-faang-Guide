@@ -8,32 +8,45 @@ on:
     types: [opened, reopened, synchronize]
 
 jobs:
-  build-and-deploy:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup TypeScript
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "18"
+          cache: "npm"
 
       - name: Install dependencies
-        run: npm install
-
-      - name: Build TypeScript
         run: |
-          echo "Building TypeScript files..."
-          npx tsc
-          echo "TypeScript build complete. Checking output files:"
-          ls -la dist/
+          echo "Checking package.json for ts-loader version"
+          grep -F "ts-loader" package.json || echo "ts-loader not found"
+          npm install
 
-          if [ -f "dist/app.js" ]; then
-            echo "✅ app.js was built successfully"
-          else
-            echo "❌ app.js was not built! Checking TypeScript config..."
-            cat tsconfig.json || echo "tsconfig.json not found!"
-          fi
+      - name: Run tests
+        run: |
+          echo "Running tests..."
+          npm test
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: |
+          echo "Checking package.json for ts-loader version"
+          grep -F "ts-loader" package.json || echo "ts-loader not found"
+          npm install
 
       - name: Generate manifest
         run: |
@@ -42,9 +55,9 @@ jobs:
           echo "Generated manifest content:"
           cat guides/manifest.json
 
-      - name: Build project
+      - name: Build project with webpack
         run: |
-          echo "Building project using npm run build..."
+          echo "Building project using webpack..."
           npm run build
           echo "Build completed. Checking output files:"
           ls -la dist/
