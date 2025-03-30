@@ -1,10 +1,11 @@
 # Bloomberg: A Student's Guide 
 > <span style="color:#556B2F; font-weight:bold;">*No matter which company you apply to, acceptance or rejection doesn’t define your worth or abilities.*</span>
     
-## [Who & what](https://www.bloomberg.com/company/what-we-do/):
+## General Overview
+[Who & what](https://www.bloomberg.com/company/what-we-do/):
 Bloomberg is a financial technology and media company headquartered in both the [UK](https://www.bloomberg.com/company/offices/bloomberg-london/) and the [USA](https://www.bloomberg.com/company/careers/global-roles/working-at-bloomberg-in-new-york/). The company provides financial professionals with real-time data, news, and analytics. Their main product is the Bloomberg Terminal.
 
-## The Recruitment Process:
+## Hiring Process
 
 ### A. Roles:
 - **Software Engineer Intern:**
@@ -57,21 +58,24 @@ For in-person interviews, you will usually receive an email notification within 
         - **Focus:** Behavioural
             > *In this final interview, you'll speak with a technical manager about your background, career goals, and your resume. While the conversation is primarily focused on getting to know you, there's a possibility you may be asked system design or algorithmic questions.*
 
-3. **Offer Stage**  
+## Company Insights
+1. **Offer Stage:** Once you successfully make it through the recruitment process and get an offer, Bloomberg will fly you out for a 3-day networking event—everything’s covered. A few months before your internship starts, you’ll get a form to choose your preferred team, but note that there’s no guarantee you’ll land exactly where you picked.
 
-    Once you successfully make it through the recruitment process and get an offer, Bloomberg will fly you out for a 3-day networking event—everything’s covered. A few months before your internship starts, you’ll get a form to choose your preferred team, but note that there’s no guarantee you’ll land exactly where you picked.
+2. **Compensation & Benefits:** High salaries & bonuses. Bloomberg is not listed, so stock options are not part of the compensation package.
 
-4. **Compensation & Benefits**
-    
-    High salaries & bonuses. Bloomberg is not listed, so stock options are not part of the compensation package.
+3. **Post-Internship Opportunities:** One of the cool things about Bloomberg is that if you stand out during your internship, they might invite you back for a second one—this time, you can choose between New York and London. They also offer full-time roles after graduation, so it’s a great long-term opportunity if things go well.
 
-5. **Post-Internship Opportunities**
-    
-    One of the cool things about Bloomberg is that if you stand out during your internship, they might invite you back for a second one—this time, you can choose between New York and London. They also offer full-time roles after graduation, so it’s a great long-term opportunity if things go well.
+## Recommendations
 
-6. **Personal touch**
-     #TODO
-7. **Resources**
+1. **Personal touch**
+
+    Even though it was a long process, I genuinely enjoyed the recruitment experience. Bloomberg stands out as one of the few companies that truly went beyond just testing whether you’re a memoization machine. I especially appreciated their in-person interviews.
+
+    The one that stuck with me the most was the system design interview. I had the chance to sit down with a senior engineer, side by side, sketching things out on paper. For the first 20 minutes, we just talked—about Bloomberg, about myself. What really impressed me was how, instead of staying on the usual surface-level topics from my resume (which was mostly AI—outside his domain), he went much deeper. He asked about convolutional layers, how features are built hierarchically—stuff that tells you something about how someone thinks. Even though the interview was about system design, I got the feeling he wanted to understand the kind of person he was talking to. Are you thoughtful? Do you actually understand things? Or are you just skimming?
+
+    Every interaction I had with them felt genuinely human. The interviews weren’t rushed. Not once did I feel like someone was watching the clock or waiting for me to slip up—unlike a certain AI company in Switzerland (no names here), where the interviewer barely said hi before launching into a checklist of questions like he was in a hurry to be somewhere else. Everyone’s experience is different, and don’t forget—the interview is also your chance to see if you want to work with them.
+
+2. **General & Specific Resources**
 
     Some links to learn about Bloomberg's culture:
     > - [AI at Bloomberg | Bloomberg Professional Services](https://www.bloomberg.com/professional/solutions/ai/?tactic-page=588598#overview)  
