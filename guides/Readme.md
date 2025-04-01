@@ -17,13 +17,13 @@ This is a full guide on how to get into a **prestigious, well-paid, internationa
 This guide goes through the full proces of building and writing a strong CV, passing screening and online assessments, nailing your interviews and finally getting an offer. 
 We present both generic and company-specific info, as well as **recent real life stories** with both successes and failures and how ridiculous the market can be right now. Enjoy.
 
-## Table of Contents
+## Table of Contents 
 - [Why Faang?]()
     - [Pros & Cons]()
     - [FAANG interns rejected by local companies]()
     - [Mandatory motivational speech]()
 - [How to Faang from UTCN]()
-    - [CV / Application Screening]()
+    - [Application Screening]()
     - [Online Assessments (OA)]()
     - [Interviews (Technical / Behavioral)]()
     - [Receiving the offer (Important)]()
@@ -83,7 +83,63 @@ Bullet points to follow
 - **Stories:** People need to know how messed up the other companies are
 -->
 
-## How to Faang from UTCN (or any Romanian uni)
+## How to Faang from UTCN (or any Romanian university)
+
+Hopefully, now you have a better idea of what FAANG is and why you might want to get in there. If you are 100% decided you want to get in, you can consider yourself halfway there, as becoming fully convinced of a purpose is the main bottleneck for most people. With that out of the way, lets get into the main stages you will go through.     
+
+### Application screening
+
+Application screening is meant to filter supposedly low-quality candidates, since companies can't afford to interview everyone for obvious reasons. Companies are very averse to false positives (people who are bad that were thought to be good) and would rather reject tons of good engineers along the bad ones on the ground that even one bad apple can ruin their team. You can be subject to screening rejections, we all are and its a part of the process that should not dissapoint you (unless everyone rejected you, then you might have an issue).
+
+Not all companies use standardized reject/accept for candidates screening. Some like [Jetbrains allow you to do a small project](https://www.jetbrains.com/careers/internships/) instead. But most do a resume screening before the interviews, either by human reviewers or robot reviewers (we'll tackle both). So the question appears, how should you build a strong CV that passes screening for most companies ? We'll focus on two parts
+
+1. **How to write your already existing achievements in your CV ?**
+2. **How to have the achievements that are FAANG worthy in the first place ?**
+
+#### How to write a strong CV ? 
+
+You will find many opinions on this topic, many contradictory, but here what worked for every single one of us at this point. 
+
+- **Looks:** There are [pleasent](https://www.europeanbestdestinations.com/best-of-europe/most-beautiful-landscapes-in-europe-2/) and [unpleasent](https://websinu.utcluj.ro) things to look at. If a human is looking, a bad looking CV will take energy to decypher and look unprofessional, which decreases your chances, no matter what you got in there. There is a lot of [design theory](https://diegopiovesan.wordpress.com/wp-content/uploads/2010/07/livro_-_the_non-designers_desi.pdf) on this, but in general, keep things simple, don't put multiple things which attract lots of attention, if there is a visual correlation between two things (size, font, allignment, boldness, position), then they should have something in common. We all use the [format in this video](https://www.youtube.com/watch?v=kCgn-7NBPSs), or something very similar. Notice how important stuff is **bold and big**, while details are smaller and written normally. Text with the same purpose, such as titles, are aligned with each other. Related informations about the same job are grouped near each other.
+  - *Missconceptions:* Many people say your CV should *be personal*, *have a photo*, *have many colors*, etc. All these advices seems out of place. These additions do not confine any information about your employability or make your CV more appealing. In fact, they draw attention on the entire page all at once, becoming hard to follow and childish. People don't want to know you at this stage, so no personal statements, photos *(being hot does not help)* or human stuff. Just raw info that is as convincing and digestible as possible.  
+- **Content:** Your main sections should be Education, Work / Startup experience, Projects. Depending on your personal achievements, also consider adding an Achievements, Research experience, Open source or whatever else makes up a good chunk of your value. For the content writing, we recommend [this](https://www.youtube.com/watch?v=kCgn-7NBPSs) and [this](https://www.youtube.com/watch?v=BYUy1yvjHxE) videos, they cover most of the info you need. Below are some important notes both found through the videos or our personal experience: 
+  - **If you worked for a project full-time**, especially if managed to attract any customers/investments, just put it under work experience, even if it wasn't an official business. You put your heart into it and it shouldn't be labelled as just a project if it was more than that, but make sure that people understand it was a personal thing and not a shadow company. Some of us did this, it was never an issue and interviewers were generally very happy about big projects which had results.
+  - **Have concrete indicators of success** attached to anything. Won a hackathon should be scored first out of 45 international teams (or top % if you didn't win first). Attracted users should be gained trafic of 2000 visitors per month and 50 sign-ups. Reduced downtime by 80%. Scored GPA top 5% of my class. Led 21 people. Try to think of any possible quantifiable metric of your success and put it there. It doesn't have to be exact, but roughly true (if you had 72.2425% speedup just say 75%). Not every sentence is mandatory to have an indicator, but try to use as many as possible. 
+  - **No useless talk**. People yap way too much and do way too little. Just say whatever you did, make it concrete and understandable, don't overinflate your achievements too much (a bit is recommended though) and don't start writing degenerate linkdin posts generated by LLM's in your CV such as "I had the delightful experience of honing my skills and meeting ...". This kind of approach doesn't tell anything about depth of the skills or their implications in the future. **You have to ground your achievements in something tied to reality**, one way or another, because grounding means credibility. Rotting for 2 days at a hackathon without any long-term progress or effort should not be classified as "honing your skills". 
+
+For editing, word is good, latex is better. You can take the template in the video and put in your own data, it works well for any information really. 
+
+#### How to have great achievements ( By Alexander the great and turkeys ) ? 
+
+<!--
+Here speak about following premade, known paths associated with success and value
+-->
+
+You can take roughly two approaches here and we will start each with its own little story.
+
+Research in the 1950s showed that when turkeys were exposed to a specific acoustic stimulus (such as “chip chirip”), nearly 95% of them automatically performed a fixed sequence of behaviors of protecting whatever object made the sound, no matter if the "chip chirip" came from an actual chick or a rock. This phenomena is called [fixed action pattern](https://en.wikipedia.org/wiki/Fixed_action_pattern) and is relevant in most living animals **including humans**. This means, in other words, that certain stimulus or inputs produce automatic responses in the brain, associated with concepts, such as maternity for tukeys, or, perhaps, **how successful you evaluate someone to be** for humans.
+
+I think everyone at some point of their lived hear about someone they didn't meet personally doing something like building a business, going to olympiads, doing research or whatever and had an instant impression about them: "they are successful", "they are smart", "they will have lots of money" and the list goes on. These associations are part of how we understand the world and are necesarry, but also exploitable. This will be our first approach in building a strong CV: **Associating ourselves with indicators of success**. These can manifest in several ways:
+
+- Previous work experience / internships
+- Olympiads
+- Research 
+- Open source contributions 
+
+For us, our most tested ones are previous work experience and olympiads. People who had either of these in their CV generally passed the screening, especially if they had both. Obviously, not everyone will see value in the same things, and you are not guaranteed to pass, but if you pick achievements which are recognized broadly enough as success indicators, you are very likely to pass screening. These methods are not exhaustive and they can be combined with original, independent projects. For example, making a startup, which is an independent project, that leads to a large number of users, an indicator of success, would combine both the independence of startup and the validation of an indicator of success, the number of users. That being said, here goes our second story.   
+
+
+
+Relating your achievements to existing proxies. 
+
+Driving new proxies but grounding them into reality somehow. 
+
+
+Somewhere around 335 BC. [Alexander the Great](https://www.youtube.com/watch?v=RlKJDwViNKs), one of the most successful conquerors of all time  encountered [Diogenes](https://www.youtube.com/watch?v=-A3IlRATIsI), a homeless cycnic philosopher, who lived in a barrel, defecating, sunbathing and vibing all day long. Alexander deeply admired Diogenes for his uncompromising indepdendece of material wealth he rejected and courage to live by his own values. Alexander (the king) asked Diogenes (the homeless man) if he, could do anything for him. Diogenes replied "Get out of my sunlight".  
+
+<!--
+Here speak about making a new path, in such a way that people will value and understand it, perhaps even more than the premade paths
+-->
 
 Main stages how to get into a FAANG
 What we know for sure it works
@@ -95,7 +151,6 @@ What most likely also works
 - **Any software project which has quantifiable impact in some numbers**, eg users, stars, revenue generated, etc
 
 Discussing each part of how to apply to FAANG in more depth
-### CV / Application Screening
 - **Focus Areas:**
     - Startup experience, work experience, research, and open source projects
     - Importance of quantifiable skills (numbers ideally)
