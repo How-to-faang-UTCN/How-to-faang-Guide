@@ -63,22 +63,12 @@ One interesting paradox is that many of the FAANG interns who contributed to thi
 
 More appalingly, you will still get you rejected many times, EVEN IF you have a FAANG internship on your CV. We believe this to be a widespread sympthom of [ghost jobs](https://en.wikipedia.org/wiki/Ghost_job), which are meant to collect data, not hire people. 
 
-In one particular instance, a student has applied in the beginning of the third year to about 50 jobs/internships in Romania, 6  in Europe, 3 of which were FAANG companies. All the 50 Romanian companies rejected him at screening phase, while 2 FAANG companies as well as a German company sent him online assesments. He now has an internship Google.
-
-In another case, the companies who were supposed to hire students at a local job shop, seemed to take pride in how many applicants they have each time they open a job and how none of them has any chance of getting in. Showing them your CV usually leads to a dismissal of any kind of value you could bring, behavior which we strongly disagree with.  
+In one particular instance, a student has applied in the beginning of the third year to about 50 jobs/internships in Romania, 6  in Europe, 3 of which were FAANG companies. All the 50 Romanian companies rejected him at screening phase, while Google, Microsoft, Amazon, Blackrock, Goldman sachs as well as a random German company sent him online assesments. He now has an internship Google.
 
 ### Mandatory motivational speech
 Perhaps the only logical moral of the story seems to be that you need at least 2 FAANG internships to even be considered by local companies So I guess that is a pro of FAANG too ? 
 
 Jokes aside, it is clear the situation right now is not great, but there are ways to make it. FAANG is not as untouchable as people think and might actually be easier than believed. Even if you are completely unqualified now, life isn't only made only of the current moment nor the current year. FAANG companies have things they clearly value and there is a way to achieve each one of those things **with time** and **effort**. And we are here to help. The reason we made this guide is to maximize the number of people getting into prestigious positions and break the cycle of apathy, low expectations who puts everyone down. People have potential, dreams, autonomy and can achieve meaningful and fullfilling lives and there is no reason to believe otherwise.
-
-<!--
-Bullet points to follow
-- **Definition and scope:** What is Faang, why it matters
-- **Why choose Faang:** Benefits, opportunities, and challenges
-- **Overview:** Pathways into Faang (including Faang classic, hedge funds, and other large tech firms)
-- **Stories:** People need to know how messed up the other companies are
--->
 
 ## How to Faang from UTCN (or any Romanian uni)
 
