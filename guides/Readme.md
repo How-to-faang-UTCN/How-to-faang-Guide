@@ -135,15 +135,29 @@ That "if understood" at the end is pesky. You have significant chances to meet s
 - **Practice:**
     - Leetcode and similar platforms
 - **Preparation Tips:**
-    - Morning routines, light physical activity, and mindful eating [TIP]
+    - Morning routines, light physical activity, and mindful eating
 
 ### Interviews (Technical / Behavioral)
 - **Technical Interviews:**
-    - “How to Crack the Coding Interview” concepts
-    - Know your subject matter and be authentic
-- **Behavioral Interviews:**
-    - Show your thought process and personality
-    - Sometimes entering despite failing both problem types [INFO]
+    A typical technical interview lasts about 45 to 60 minutes and is usually conducted by an engineer from the company you applied to. For internship interviews, the focus is primarily on algorithms and data structures. However, some companies, _such as Bloomberg_, may also include system design rounds, even at the internship level.
+
+- **General Interview Advice:**
+    - **Understand the Fundamentals:** Be confident with core topics like data structures, algorithms, and time complexity. It’s not just about solving the problem but doing so efficiently.
+    - **Practice Out Loud:** Explain your thought process clearly. Interviewers care as much about how you approach a problem as whether you get the right answer. Even when you're practicing LeetCode after gaining a solid grasp of the core concepts, try to talk through your thought process from start to finish as you solve each problem.
+    - **Clarify the Problem:** Don’t hesitate to ask clarifying questions before jumping into code. It shows you're thoughtful and methodical. **NEVER JUMP INTO THE CODE BEFORE THIS STEP**, take your time 5-10 minutes, whatever you need, the more you understand the better.
+    - **Start Simple:** If needed, begin with a brute-force approach and optimize later, it's completely fine to improve your solution iteratively. If you already know the optimized solution, feel free to go for it first, but briefly mention the brute-force approach to show the interviewer that you're aware of it before diving into the code.
+    - **Stay Calm Under Pressure:** It's completely normal to feel nervous during an interview. If you get stuck, talk through your thought process, it not only shows resilience and problem-solving skills but also helps calm your nerves. Remember, speaking out loud keeps the interviewer informed about where you are in your approach, and they’re often willing to guide you if they see you're thinking in the right direction. The interviewer is your ally, not your enemy, you're working together to solve a problem.
+    - **Know the Company:** Do basic research about the company and tailor your examples or questions accordingly. It shows interest and preparation.
+
+- **Useful resources**:
+    - Algorithms and Data Structures:
+        - If you're short on time: Watch YouTube videos for quick explanations of basic concepts as you encounter them, and simultaneously work through NeetCode's [Blind 75](https://neetcode.io/practice?tab=blind75) list to build practical problem-solving skills.
+        - If you have more time to prepare: Consider reading Cracking the Coding Interview by Gayle Laakmann McDowell or taking the free [Algorithms course](https://www.coursera.org/learn/algorithms-part1) by Princeton University on Coursera for a deeper understanding of data structures and algorithms. After that, work through the [Blind 150](https://neetcode.io/practice?tab=neetcode150). Once you've completed it, start solving random problems on your own. Aim to solve around 200–300 problems in total, this level of practice will **significantly increase** your chances of succeeding in almost any coding interview.
+        - NeetCode's [YouTube channel](https://www.youtube.com/@NeetCode) includes explanations, the thought process behind solving each problem, and step-by-step solution implementations. Side Quest: For general software engineering advice (and entertainment), check out [ThePrimeagen](https://www.youtube.com/@ThePrimeTimeagen) :)
+    - System Design:
+        - [Content to be added.]
+    - Behavioural:
+        - [Content to be added.]
 
 ### Successful Planning
 - **Timeline:**
