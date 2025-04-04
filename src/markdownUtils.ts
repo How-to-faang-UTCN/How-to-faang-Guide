@@ -1,8 +1,12 @@
 import { marked } from 'marked';
+import { shortnameToUnicode } from 'emoji-toolkit';
 
 const renderer = {
     link(href: string, title: string | null | undefined, text: string) {
         return `<a href="${href}" target="_blank" ${title ? `title="${title}"` : ''}>${text}</a>`;
+    },
+    text(text: string) {
+        return shortnameToUnicode(text);
     }
 };
 
@@ -72,7 +76,7 @@ export function processMarkdownBlock(text: string): string {
 }
 
 /**
- * Render markdown text to HTML, preserving any HTML tags
+ * Render markdown text to HTML, preserving any HTML tags and converting emojis
  */
 export function renderMarkdown(markdown: string): string {
     try {
