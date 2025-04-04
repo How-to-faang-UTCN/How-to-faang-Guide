@@ -1,3 +1,13 @@
+import { marked } from 'marked';
+
+const renderer = {
+    link(href: string, title: string | null | undefined, text: string) {
+        return `<a href="${href}" target="_blank" ${title ? `title="${title}"` : ''}>${text}</a>`;
+    }
+};
+
+marked.use({ renderer });
+
 /**
  * Checks if text contains HTML tags
  */
@@ -9,7 +19,6 @@ export function containsHtml(text: string): boolean {
  * Process a block of pure Markdown text into HTML
  */
 export function processMarkdownBlock(text: string): string {
-    // Process the markdown in steps
     let html = text
         .replace(/^# (.*$)/gm, '<h1>$1</h1>')
         .replace(/^## (.*$)/gm, '<h2>$1</h2>')
@@ -66,39 +75,17 @@ export function processMarkdownBlock(text: string): string {
  * Render markdown text to HTML, preserving any HTML tags
  */
 export function renderMarkdown(markdown: string): string {
-    // Check if the content contains HTML tags
-    if (containsHtml(markdown)) {
-        // Split the content into blocks - some HTML, some Markdown
-        const blocks = markdown.split(/(<\/?[a-z][\s\S]*?>)/gi);
-        let isInsideHtmlTag = false;
-        let processedContent = '';
-
-        for (const block of blocks) {
-            // If this block is an HTML tag (opening or closing)
-            if (block.match(/^<\/?[a-z][\s\S]*?>$/i)) {
-                // Handle HTML tag opening/closing
-                if (block.match(/^<[^\/]/)) { // Opening tag
-                    isInsideHtmlTag = true;
-                } else if (block.match(/^<\//)) { // Closing tag
-                    isInsideHtmlTag = false;
-                }
-                processedContent += block;
-            } else {
-                // For content between HTML tags
-                if (isInsideHtmlTag) {
-                    // Inside HTML, keep as is
-                    processedContent += block;
-                } else {
-                    // Outside HTML, process as Markdown
-                    processedContent += processMarkdownBlock(block);
-                }
-            }
-        }
-
-        return processedContent;
-    } else {
-        // No HTML, simply process the entire content as Markdown
-        return processMarkdownBlock(markdown);
+    try {
+        return marked.parse(markdown, {
+            breaks: true,     // Convert \n to <br>
+            gfm: true,        // Enable GitHub Flavored Markdown
+        }) as string;        // Force sync mode
+    } catch (error) {
+        console.error('Error rendering markdown:', error);
+        return `<div class="error-message">
+            <h2>Error</h2>
+            <p>Failed to render content. Please try again later.</p>
+        </div>`;
     }
 }
 
