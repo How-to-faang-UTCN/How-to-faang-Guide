@@ -135,7 +135,7 @@ That "if understood" at the end is pesky. You have significant chances to meet s
 - **Practice:**
     - Leetcode and similar platforms
 - **Preparation Tips:**
-    - Morning routines, light physical activity, and mindful eating [TIP]
+    - Morning routines, light physical activity, and mindful eating
 
 ### Interviews (Technical / Behavioral)
 - **Technical Interviews:**
