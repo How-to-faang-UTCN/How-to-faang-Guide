@@ -128,6 +128,57 @@ h1 {
     margin-bottom: 20px;
 }
 
+.content-container blockquote {
+    border-left: 4px solid var(--primary-color);
+    margin: 1.5em 0;
+    padding: 0.5em 1em;
+    background-color: rgba(0, 119, 204, 0.05);
+    color: #555;
+}
+
+.content-container blockquote p {
+    margin: 0;
+}
+
+.content-container blockquote strong,
+.content-container blockquote em {
+    color: inherit;
+}
+
+.content-container strong {
+    color: #2c3e50;
+}
+
+.content-container em {
+    color: #34495e;
+}
+
+.content-container span[style] {
+    display: inline-block;
+    line-height: inherit;
+}
+
+.content-container h1,
+.content-container h2,
+.content-container h3,
+.content-container h4,
+.content-container h5,
+.content-container h6 {
+    margin-bottom: 0.5em;
+}
+
+.content-container a {
+    color: var(--primary-color);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.content-container a:hover {
+    text-decoration: none;
+    border-bottom-color: var(--primary-color);
+}
+
 @media (max-width: 768px) {
     .app-container {
         padding: 10px;
