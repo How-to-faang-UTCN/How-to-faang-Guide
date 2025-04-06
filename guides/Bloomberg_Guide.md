@@ -59,7 +59,7 @@ For in-person interviews, you will usually receive an email notification within 
             > *In this final interview, you'll speak with a technical manager about your background, career goals, and your resume. While the conversation is primarily focused on getting to know you, there's a possibility you may be asked system design or algorithmic questions.*
 
 ## Company Insights
-1. **Offer Stage:** Once you successfully make it through the recruitment process and get an offer, Bloomberg will fly you out for a 3-day networking event—everything’s covered. A few months before your internship starts, you’ll get a form to choose your preferred team, but note that there’s no guarantee you’ll land exactly where you picked.
+1. **Offer Stage:** Once you successfully make it through the recruitment process and get an offer, a few months before your internship starts, you’ll get a form to choose your preferred team, but note that there’s no guarantee you’ll land exactly where you picked.
 
 2. **Compensation & Benefits:** High salaries & bonuses. Bloomberg is not listed, so stock options are not part of the compensation package.
 
