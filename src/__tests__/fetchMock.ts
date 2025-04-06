@@ -39,8 +39,6 @@ export function createMockResponse(status: number, data: any, contentType = 'app
 export function setupFetchMock(mockResponses: Record<string, Response>) {
     // @ts-ignore: Overriding fetch for tests
     global.fetch = jest.fn((url: string) => {
-        console.log(`Mock fetch called with: ${url}`);
-
         if (url in mockResponses) {
             return Promise.resolve(mockResponses[url]);
         }
