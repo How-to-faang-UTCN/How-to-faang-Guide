@@ -6,6 +6,8 @@ on:
       - master
   pull_request:
     types: [opened, reopened, synchronize]
+    branches:
+      - master
 
 jobs:
   test:
@@ -50,7 +52,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           OPEN_PRS=$(gh pr list --state open --json number | jq length)
-          MAX_PRS=5
+          MAX_PRS=10
 
           if [ "$OPEN_PRS" -gt "$MAX_PRS" ]; then
             echo "❌ Too many open PRs ($OPEN_PRS). Maximum allowed: $MAX_PRS"
@@ -146,20 +148,14 @@ jobs:
       - name: Deploy to Netlify
         id: netlify-deploy
         run: |
+          # Debug information
+          echo "Event type: ${{ github.event_name }}"
+          echo "Using site ID: ${{ secrets.NETLIFY_SITE_ID }}"
+
           if [ "${{ github.event_name }}" == "push" ]; then
             echo "Deploying to production..."
-            netlify deploy --dir=./dist --prod
+            netlify deploy --dir=./dist --prod --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --site ${{ secrets.NETLIFY_SITE_ID }}
           else
             echo "Deploying preview for PR #${{ github.event.number }}..."
-            netlify deploy --dir=./dist --alias="pr-${{ github.event.number }}"
+            netlify deploy --dir=./dist --alias="pr-${{ github.event.number }}" --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --site ${{ secrets.NETLIFY_SITE_ID }}
           fi
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-
-      - name: Display deployment URLs
-        if: success()
-        run: |
-          echo "🚀 Deployment successful!"
-          echo "Your site should be available at:"
-          echo "https://$(cat .netlify/output)" || echo "https://$(cat .netlify/state.json | jq -r .siteId).netlify.app"
