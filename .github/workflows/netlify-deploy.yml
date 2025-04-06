@@ -36,6 +36,30 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Verify workflow file integrity
+        run: |
+          WORKFLOW_HASH=$(sha256sum .github/workflows/netlify-deploy.yml | cut -d' ' -f1)
+
+          if [ "$WORKFLOW_HASH" != "${{ secrets.WORKFLOW_HASH }}" ]; then
+            echo "❌ Workflow file has been modified!"
+            exit 1
+          fi
+          echo "✅ Workflow file integrity verified"
+
+      - name: Check PR limit
+        if: github.event_name == 'pull_request'
+        run: |
+          OPEN_PRS=$(gh pr list --state open --json number | jq length)
+          MAX_PRS=5
+
+          if [ "$OPEN_PRS" -gt "$MAX_PRS" ]; then
+            echo "❌ Too many open PRs ($OPEN_PRS). Maximum allowed: $MAX_PRS"
+            exit 1
+          fi
+          echo "✅ PR limit check passed ($OPEN_PRS/$MAX_PRS PRs open)"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -97,7 +121,6 @@ jobs:
           echo "Deployment directory structure:"
           find dist -type f | sort
 
-      # Display deployment info
       - name: Check Netlify credentials
         run: |
           if [ -n "${{ secrets.NETLIFY_AUTH_TOKEN }}" ]; then
@@ -117,7 +140,6 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
-      # Deploy to Netlify
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
 
@@ -135,7 +157,6 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
-      # Output deployment URLs
       - name: Display deployment URLs
         if: success()
         run: |
