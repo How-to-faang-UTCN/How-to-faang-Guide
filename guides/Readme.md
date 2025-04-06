@@ -160,11 +160,34 @@ That "if understood" at the end is pesky. You have significant chances to meet s
         - [Content to be added.]
 
 ### Successful Planning
-- **Timeline:**
-    - Start planning at least 6 months in advance
-- **Strategy:**
-    - Set clear priorities, learn to say no, and value your time
-    - Emphasize that opportunities are made, not given [TIP]
+Planning is everything. Most people fail technical interviews not because they aren't smart enough, but because they didn't plan well enough. Success comes from being consistent, strategic, and self-aware.
+- **Timeline: How Much Time Should You Give Yourself?:**
+    - 6 months (Ideal) - Best for deeper understanding and avoiding burnout. Great for building confidence and mastery of both concepts and problem-solving
+    - 3 months (Medium difficulty) - Requires a structured roadmap and disciplined daily goals. You need to be more aggressive but still have enough time to review and iterate.
+    - 1.5 months (Hard mode) - For those with prior experience or strong fundamentals. Expect long days and rapid progression. Efficiency and focus are key.
+
+- **What Are You Aiming For?**
+    - Your end goal: Solve 200–300 LeetCode problems, with a good mix of easy, medium, and hard.
+    - **Problem mix:**
+        - 50 Easy (Confidence and speed)
+        - 150 Medium (Bread-and-butter of most interviews)
+        - 50–100 Hard (Advanced thinking, edge cases)
+-  **Daily Strategy: Set Realistic, Non-Negotiable Goals**
+    - Consistency beats cramming btw.
+    - Example Daily Goal (This is just a fast-paced example, you can set easier or harder goals for yourself, but the key is the same: **stay consistent.**)
+        - 4 problems/day:
+            - 3 Medium
+            - 1 Hard
+            - 2-3 Easy when you need a confidence boost (optional)
+        - 1 month -> 124 problems solved
+    - Bonus tip: Use a spreadsheet or Notion to track your daily progress, tag problems by topic, and mark which ones you need to revisit.
+
+- **Additional Insights**
+    - Create your own “cheat sheet” of patterns and template solutions (binary search, BFS/DFS, two pointers, etc.)
+    - Re-solve problems without looking at the solution to improve recall.
+    - Simulate real interviews: use tools like Pramp, Interviewing.io, or **mock interviews with friends.**
+    - Keep a LeetCode notebook (physical or digital) with notes, mistakes, and “aha” moments. :o
+    - Always review problems you couldn’t solve, these are your goldmine for growth.
 
 ---
 
