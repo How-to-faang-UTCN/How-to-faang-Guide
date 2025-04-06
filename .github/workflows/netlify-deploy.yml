@@ -148,10 +148,14 @@ jobs:
       - name: Deploy to Netlify
         id: netlify-deploy
         run: |
+          # Debug information
+          echo "Event type: ${{ github.event_name }}"
+          echo "Using site ID: ${{ secrets.NETLIFY_SITE_ID }}"
+
           if [ "${{ github.event_name }}" == "push" ]; then
             echo "Deploying to production..."
             netlify deploy --dir=./dist --prod --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --site ${{ secrets.NETLIFY_SITE_ID }}
           else
             echo "Deploying preview for PR #${{ github.event.number }}..."
-            netlify deploy --dir=./dist --alias="pr-${{ github.event.number }}" --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} -site ${{ secrets.NETLIFY_SITE_ID }}
+            netlify deploy --dir=./dist --alias="pr-${{ github.event.number }}" --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --site ${{ secrets.NETLIFY_SITE_ID }}
           fi
