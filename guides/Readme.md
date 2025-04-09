@@ -18,14 +18,14 @@ This guide goes through the full proces of building and writing a strong CV that
 We present both generic and company-specific info, as well as **recent real-life stories** with both successes and failures and how ridiculous the market can be sometimes. Enjoy.
 
 ## Table of Contents 
-- [Why Faang?]()
-    - [Pros & Cons]()
-    - [FAANG interns rejected by local companies]()
-    - [Mandatory motivational speech]()
-- [How to Faang from UTCN]()
-    - [Application Screening]()
-    - [Online Assessments (OA)]()
-    - [Interviews (Technical / Behavioral)]()
+- [Why Faang?](#why-faang)
+    - [Pros & Cons](#pros)
+    - [FAANG interns rejected by local companies](#faang-interns-getting-rejected-at-local-companies)
+    - [Mandatory motivational speech](#mandatory-motivational-speech)
+- [How to Faang from UTCN](#how-to-faang-from-utcn-or-any-romanian-university)
+    - [Application Screening](#application-screening)
+    - [Online Assessments (OA)](#online-assessments-oa)
+    - [Interviews (Technical / Behavioral)](#interviews-technical--behavioral)
     - [Receiving the offer (Important)]()
 - [Successful Planning]()
 - [FAANG companies by species]()
@@ -132,10 +132,17 @@ But at this point, you might argue "Yes, but my interviewer won't be Alexander t
 That "if understood" at the end is pesky. You have significant chances to meet someone who simply never exited their comfort zone and doesn't appreciate anything else other than standardized metrics. Is there way to convince these people too ? Yes it is, and if it wasn't we would find one. What if, lets say, you were to do something new, but **with a context attached to it** ? For example, doing a startup can mean a million things. But doing a startup which attracted lets say 10000 users and 5000$ in VC funds allows both for the original, courageous part "doing a startup" as well as the benefits of having a success indicator "5000$ in VC and 10000 users". You are essentially combining the best of both worlds. So whatever you are doing, no matter if it is original or standardized, try to think to yourself "How can I ground this thing in understandable indicators ?", no matter if they are emotions, of VC funds, users, published research, open source stars and the list goes on. Always keep the connection to reality and have something to ground your success in. Here the methods that worked for us are doing **startups** which gained about 100-200 sign-ups and between 2000-3000 thousands visits each month (albeit with some active marketing on reddit). 
 
 ### Online Assessments (OA)
-- **Practice:**
-    - Leetcode and similar platforms
-- **Preparation Tips:**
-    - Morning routines, light physical activity, and mindful eating
+
+If you successfully passed the screening phase, you are likely to get an online assessment. They are common, but not all companies use them, some just pass you directly to the interview stage. Online assessments are generally comprised of Leetcode questions (at 90% of the FAANG companies) and sometimes general programming knowledge. 
+
+The preparation for OA is similar to the one for the interviews, you simply have to grind algorithms and data structures. We recommend starting with NeetCode's [Blind 75](https://neetcode.io/practice?tab=blind75) as they cover the entire curriculum that might be checked during OA's and then moving to [Blind 150](https://neetcode.io/practice?tab=neetcode150). Afterwards, simply go on leetcode and do randomized problems
+
+A good rule of thumb is that if you can complete 90% of leetcode medium problem in under 10 minutes and at least know the solution to 70-80% of leetcode hard problems (implementation takes a lot sometimes), you are well prepared and should be able to pass the OA easily. You can reach this level by solving about 200-300 problems (so Blind 150 and then another 150 problems). Make sure to solve problems of all levels, not only easy ones.
+
+**Preparation Tips:** Before your OA, you should do several things to maximize your chances of performing well. You probably know them from exams already, but we are going to iterate over them again. 
+- Take your OA about 2-4 hours after you wake up. At that point you should have enough "morning energy" to put into your assessment, but not be sleepy.
+- Do some light physical activity before the OA, it will bring more oxygen to your brain and improve your mood and clarity before the OA. Don't go to the gym and start deadlifting 500kg, because at that point you completely drain your body of energy and it does more harm then good. 
+- Eat a light meal, but not like a pig. Too much food has a tendancy to make people fall asleep since your body redirect blood to your stomach and intestines and starts generating insulin, both of which make you more sleepy or potentially tired. 
 
 ### Interviews (Technical / Behavioral)
 - **Technical Interviews:**
@@ -189,22 +196,43 @@ Planning is everything. Most people fail technical interviews not because they a
     - Keep a LeetCode notebook (physical or digital) with notes, mistakes, and “aha” moments. :o
     - Always review problems you couldn’t solve, these are your goldmine for growth.
 
----
 
-## Species of FAANG companies
-The following are the "species" of FAANG you can expect to find in the wild zoo of the tech world. 
+## More info about FAANG companies (classified by species)
 
-## Specific companies
-I think these should be put in their separate README files in the repository
-- **MSFT**
-- **Google**
-- **Amazon**
-- **Bloomberg**
-- **sefggbffds**
+Big prestigious companies centered around software can be classified in a few groups (not exhaustive, nor unique) which are presented below along with their properties. 
 
----
+**Big tech (FAANG)**
+- These are the classics, considered the most prestigious and engineering heavy software companies on the planet. Generally very well paid, take lots of time and can set your CV for life. They all have their own unique thing, but come at about the same prestige. Most of them are so recognizable that we don't need to mention what they do anymore.
+- Some examples are Meta, Apple, Amazon, Netflix, Google, Microsoft, Nvidia (more recently)
+
+**Quant (hedge funds)**
+- If you thought Big tech pays well, wait until you see these guys. These are the highest paying jobs (and interviews) on the planet at the moment, with salaries reaching about [25k dollars / month](https://www.levels.fyi/companies/jane-street/salaries/software-engineer/locations/london-metro-area?dma=10045) at entry level in Europe, which can be achieved in Big tech only at senior level. They do quantitative trading, basically using high level mathematics to exploit market inneficiencies and price discrepancies. They make so much money that these salaries are peanuts to them.
+- Jane street, Citadel, De shaw, IMC trading, Reinassance technologies, Radix trading, Optiver, Jump trading
+
+**Hot Startups**
+- These are highly successful startups which managed to get large amounts of VC funding and are spearheading current technology along with Big Tech. Right now many of them are focused on AI and LLM's but there are others niches nevertheless. Many of them offer internships and getting into one is oftentimes harder than Big Tech, since their interviews are more niched and less predictable. 
+- OpenAI, Anthropic, Lakarta AI, 
+
+**Prestigious but not Big tech** 
+- As good as big tech but without the huge legacy behind them. Some like Bloomberg and Uber pay better than most Big tech companies and largely employ the same hiring practices. You can think of them as big tech but with a bit less visibility. However, landing would put you in a position just as good as working for Google or Microsoft.
+- Adobe, Oracle, Uber, Bloomberg, Palantir, Goldman sachs, Databricks (founded by 2 Romanian guys btw), Stripe.
+
+This list can of course be rearranged in various ways and other companies or niches can be included (for example we ommited research oriented organizations like Deepmind, Cern, Max Plank Institute and so on) but for the current state of the guide we will limit ourselves to software.
+
+### Specific companies
+
+We also made specific guides for each of the below companies, with specific info about the hiring process, company overall, how to prepare and what you might expect at all stages of the hiring process. The information is curated by one or more people who either went through all interviews up to the final one or has an internship/job offer.
+
+- [Microsoft](Microsoft_Guide.md)
+- [Google](Google_Guide.md)
+- [Amazon](Amazon_Guide.md)
+- [Bloomberg](Bloomberg_Guide.md)
+- [Jane Street](Jane_Street_Guide.md)
+- [Optiver](Optiver_Guide.md)
 
 ## Additional Resources
-- UPB archieve link https://drive.google.com/drive/folders/1nn5sZZ2hcdDIqoGiLg-kiiSfv0iIPnMP 
-- External links, articles, and further reading
-- Tools and websites for practice and preparation
+
+Here is a curated list of additonal resources which you might find useful
+
+- [ACS internships](https://acsinternships.lsacbucuresti.ro/) 
+  - A similar, more mature resource similar to this repository. Advice is quite generic, some company guides are a bit outdated, but they have many more of them. Overall a great advice and contributions. 
