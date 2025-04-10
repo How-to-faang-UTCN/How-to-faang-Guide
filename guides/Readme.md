@@ -24,14 +24,13 @@ We present both generic and company-specific info, as well as **recent real-life
     - [Mandatory motivational speech](#mandatory-motivational-speech)
 - [How to Faang from UTCN](#how-to-faang-from-utcn-or-any-romanian-university)
     - [Application Screening](#application-screening)
+      - [How to have great achievements (By Alexander The Great)](#how-to-have-great-achievements--by-alexander-the-great-and-dogs--)
     - [Online Assessments (OA)](#online-assessments-oa)
     - [Interviews (Technical / Behavioral)](#interviews-technical--behavioral)
     - [Receiving the offer (Important)]()
-- [Successful Planning]()
-- [FAANG companies by species]()
-- [Specific Companies]()
-- [Getting into FAANG after college]()
-- [Additional Resources]()
+- [Successful Planning](#successful-planning)
+- [More info about FAANG companies (classified by species)](#more-info-about-faang-companies-classified-by-species)
+- [Additional Resources](#additional-resources)
 
 ---
 
@@ -210,7 +209,7 @@ Big prestigious companies centered around software can be classified in a few gr
 - Jane street, Citadel, De shaw, IMC trading, Reinassance technologies, Radix trading, Optiver, Jump trading
 
 **Hot Startups**
-- These are highly successful startups which managed to get large amounts of VC funding and are spearheading current technology along with Big Tech. Right now many of them are focused on AI and LLM's but there are others niches nevertheless. Many of them offer internships and getting into one is oftentimes harder than Big Tech, since their interviews are more niched and less predictable. 
+- These are highly successful startups which managed to get large amounts of VC funding and are spearheading current technology along with Big Tech. You might expect to be responsible for larger parts of the systems they are developing and gaining more information than from a normal company. Right now many of them are focused on AI and LLM's but there are others niches nevertheless. Many of them offer internships and getting into one is oftentimes harder than Big Tech, since their interviews are more niched and less predictable. 
 - OpenAI, Anthropic, Lakarta AI, 
 
 **Prestigious but not Big tech** 
@@ -235,4 +234,4 @@ We also made specific guides for each of the below companies, with specific info
 Here is a curated list of additonal resources which you might find useful
 
 - [ACS internships](https://acsinternships.lsacbucuresti.ro/) 
-  - A similar, more mature resource similar to this repository. Advice is quite generic, some company guides are a bit outdated, but they have many more of them. Overall a great advice and contributions. 
+  - A similar, more mature resource similar to this repository. Advice is quite generic, some company guides are a bit outdated, but they have many more of them. Overall a great contribution. 
