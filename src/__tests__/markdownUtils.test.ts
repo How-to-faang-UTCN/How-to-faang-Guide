@@ -22,9 +22,9 @@ describe('containsHtml', () => {
 
 describe('processMarkdownBlock', () => {
     test('should convert headings correctly', () => {
-        expect(processMarkdownBlock('# Heading 1')).toContain('<h1>Heading 1</h1>');
-        expect(processMarkdownBlock('## Heading 2')).toContain('<h2>Heading 2</h2>');
-        expect(processMarkdownBlock('### Heading 3')).toContain('<h3>Heading 3</h3>');
+        expect(processMarkdownBlock('# Heading 1')).toContain('<h1 id="heading-1">Heading 1</h1>');
+        expect(processMarkdownBlock('## Heading 2')).toContain('<h2 id="heading-2">Heading 2</h2>');
+        expect(processMarkdownBlock('### Heading 3')).toContain('<h3 id="heading-3">Heading 3</h3>');
     });
 
     test('should convert formatting correctly', () => {
@@ -54,8 +54,8 @@ describe('renderMarkdown', () => {
     test('should handle pure markdown text', () => {
         const markdown = '# Heading\n\nSome paragraph text\n\n- List item 1\n- List item 2';
         const result = renderMarkdown(markdown);
-        expect(result).toContain('<h1>Heading</h1>');
-        expect(result).toContain('Some paragraph text');
+        expect(result).toContain('<h1 id="heading">Heading</h1>');
+        expect(result).toContain('<p>Some paragraph text</p>');
         expect(result).toContain('<li>List item 1</li>');
     });
 
@@ -65,7 +65,7 @@ describe('renderMarkdown', () => {
         expect(result).toContain('<div class="custom">');
         expect(result).toContain('# Heading inside div');
         expect(result).toContain('</div>');
-        expect(result).toContain('<h1>Heading outside div</h1>');
+        expect(result).toContain('<h1 id="heading-outside-div">Heading outside div</h1>');
     });
 });
 
@@ -119,4 +119,59 @@ describe('sortMarkdownFiles', () => {
         expect(result[1]).toBe('Google_Guide.md');
         expect(result[2]).toBe('Microsoft_Guide.md');
     });
-}); 
+});
+
+describe('generateSlug', () => {
+    it('should convert text to lowercase', () => {
+        const result = processMarkdownBlock('# Hello World');
+        expect(result).toContain('id="hello-world"');
+    });
+
+    it('should replace spaces with hyphens', () => {
+        const result = processMarkdownBlock('# Hello World');
+        expect(result).toContain('id="hello-world"');
+    });
+
+    it('should remove special characters', () => {
+        const result = processMarkdownBlock('# Hello, World!');
+        expect(result).toContain('id="hello-world"');
+    });
+
+    it('should handle multiple spaces', () => {
+        const result = processMarkdownBlock('# Hello    World');
+        expect(result).toContain('id="hello-world"');
+    });
+
+    it('should handle multiple hyphens', () => {
+        const result = processMarkdownBlock('# Hello---World');
+        expect(result).toContain('id="hello-world"');
+    });
+});
+
+describe('link handling', () => {
+    it('should handle internal anchor links', () => {
+        const result = processMarkdownBlock('[Link to section](#section)');
+        expect(result).toContain('<a href="#section">Link to section</a>');
+    });
+
+    it('should handle external links with target="_blank"', () => {
+        const result = processMarkdownBlock('[External Link](https://example.com)');
+        expect(result).toContain('<a href="https://example.com" target="_blank">External Link</a>');
+    });
+
+    it('should handle empty links', () => {
+        const result = processMarkdownBlock('[Empty Link]()');
+        expect(result).toContain('<span class="invalid-link">Empty Link</span>');
+    });
+
+    it('should handle multiple links in the same block', () => {
+        const result = processMarkdownBlock(`
+            [Internal](#section)
+            [External](https://example.com)
+            [Empty]()
+        `);
+        expect(result).toContain('<a href="#section">Internal</a>');
+        expect(result).toContain('<a href="https://example.com" target="_blank">External</a>');
+        expect(result).toContain('<span class="invalid-link">Empty</span>');
+    });
+});
