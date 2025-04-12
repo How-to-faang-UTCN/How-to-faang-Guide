@@ -25,7 +25,7 @@ We present both generic and company-specific info, as well as **recent real-life
 - [How to Faang from UTCN](#how-to-faang-from-utcn-or-any-romanian-university)
     - [Application Screening](#application-screening)
     - [Online Assessments (OA)](#online-assessments-oa)
-    - [Interviews (Technical / Behavioral)](#interviews-technical--behavioral)
+    - [Interviews (Technical / Behavioral)](#interviews-technical-behavioral)
     - [Receiving the offer (Important)](#receiving-the-offer-important)
 - [Successful Planning](#successful-planning)
 - [FAANG companies by species](#species-of-faang-companies)
