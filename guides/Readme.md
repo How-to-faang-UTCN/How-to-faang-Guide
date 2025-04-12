@@ -18,20 +18,20 @@ This guide goes through the full proces of building and writing a strong CV that
 We present both generic and company-specific info, as well as **recent real-life stories** with both successes and failures and how ridiculous the market can be sometimes. Enjoy.
 
 ## Table of Contents 
-- [Why Faang?]()
-    - [Pros & Cons]()
-    - [FAANG interns rejected by local companies]()
-    - [Mandatory motivational speech]()
-- [How to Faang from UTCN]()
-    - [Application Screening]()
-    - [Online Assessments (OA)]()
-    - [Interviews (Technical / Behavioral)]()
-    - [Receiving the offer (Important)]()
-- [Successful Planning]()
-- [FAANG companies by species]()
-- [Specific Companies]()
-- [Getting into FAANG after college]()
-- [Additional Resources]()
+- [Why Faang?](#why-faang)
+    - [Pros & Cons](#pros--cons)
+    - [FAANG interns rejected by local companies](#faang-interns-getting-rejected-at-local-companies)
+    - [Mandatory motivational speech](#mandatory-motivational-speech)
+- [How to Faang from UTCN](#how-to-faang-from-utcn-or-any-romanian-university)
+    - [Application Screening](#application-screening)
+    - [Online Assessments (OA)](#online-assessments-oa)
+    - [Interviews (Technical / Behavioral)](#interviews-technical-behavioral)
+    - [Receiving the offer (Important)](#receiving-the-offer-important)
+- [Successful Planning](#successful-planning)
+- [FAANG companies by species](#species-of-faang-companies)
+- [Specific Companies](#specific-companies)
+- [Getting into FAANG after college](#getting-into-faang-after-college)
+- [Additional Resources](#additional-resources)
 
 ---
 
@@ -142,11 +142,11 @@ That "if understood" at the end is pesky. You have significant chances to meet s
     A typical technical interview lasts about 45 to 60 minutes and is usually conducted by an engineer from the company you applied to. For internship interviews, the focus is primarily on algorithms and data structures. However, some companies, _such as Bloomberg_, may also include system design rounds, even at the internship level.
 
 - **General Interview Advice:**
-    - **Understand the Fundamentals:** Be confident with core topics like data structures, algorithms, and time complexity. It’s not just about solving the problem but doing so efficiently.
+    - **Understand the Fundamentals:** Be confident with core topics like data structures, algorithms, and time complexity. It's not just about solving the problem but doing so efficiently.
     - **Practice Out Loud:** Explain your thought process clearly. Interviewers care as much about how you approach a problem as whether you get the right answer. Even when you're practicing LeetCode after gaining a solid grasp of the core concepts, try to talk through your thought process from start to finish as you solve each problem.
-    - **Clarify the Problem:** Don’t hesitate to ask clarifying questions before jumping into code. It shows you're thoughtful and methodical. **NEVER JUMP INTO THE CODE BEFORE THIS STEP**, take your time 5-10 minutes, whatever you need, the more you understand the better.
+    - **Clarify the Problem:** Don't hesitate to ask clarifying questions before jumping into code. It shows you're thoughtful and methodical. **NEVER JUMP INTO THE CODE BEFORE THIS STEP**, take your time 5-10 minutes, whatever you need, the more you understand the better.
     - **Start Simple:** If needed, begin with a brute-force approach and optimize later, it's completely fine to improve your solution iteratively. If you already know the optimized solution, feel free to go for it first, but briefly mention the brute-force approach to show the interviewer that you're aware of it before diving into the code.
-    - **Stay Calm Under Pressure:** It's completely normal to feel nervous during an interview. If you get stuck, talk through your thought process, it not only shows resilience and problem-solving skills but also helps calm your nerves. Remember, speaking out loud keeps the interviewer informed about where you are in your approach, and they’re often willing to guide you if they see you're thinking in the right direction. The interviewer is your ally, not your enemy, you're working together to solve a problem.
+    - **Stay Calm Under Pressure:** It's completely normal to feel nervous during an interview. If you get stuck, talk through your thought process, it not only shows resilience and problem-solving skills but also helps calm your nerves. Remember, speaking out loud keeps the interviewer informed about where you are in your approach, and they're often willing to guide you if they see you're thinking in the right direction. The interviewer is your ally, not your enemy, you're working together to solve a problem.
     - **Know the Company:** Do basic research about the company and tailor your examples or questions accordingly. It shows interest and preparation.
 
 - **Useful resources**:
@@ -183,11 +183,11 @@ Planning is everything. Most people fail technical interviews not because they a
     - Bonus tip: Use a spreadsheet or Notion to track your daily progress, tag problems by topic, and mark which ones you need to revisit.
 
 - **Additional Insights**
-    - Create your own “cheat sheet” of patterns and template solutions (binary search, BFS/DFS, two pointers, etc.)
+    - Create your own "cheat sheet" of patterns and template solutions (binary search, BFS/DFS, two pointers, etc.)
     - Re-solve problems without looking at the solution to improve recall.
     - Simulate real interviews: use tools like Pramp, Interviewing.io, or **mock interviews with friends.**
-    - Keep a LeetCode notebook (physical or digital) with notes, mistakes, and “aha” moments. :o
-    - Always review problems you couldn’t solve, these are your goldmine for growth.
+    - Keep a LeetCode notebook (physical or digital) with notes, mistakes, and "aha" moments. :o
+    - Always review problems you couldn't solve, these are your goldmine for growth.
 
 ---
 

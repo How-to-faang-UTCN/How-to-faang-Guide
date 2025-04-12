@@ -1,8 +1,27 @@
 import { marked } from 'marked';
 import { shortnameToUnicode } from 'emoji-toolkit';
 
+function generateSlug(text: string): string {
+    return text
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .trim();
+}
+
 const renderer = {
+    heading(text: string, level: number) {
+        const slug = generateSlug(text);
+        return `<h${level} id="${slug}">${text}</h${level}>`;
+    },
     link(href: string, title: string | null | undefined, text: string) {
+        if (!href || href.trim() === '') {
+            return `<span class="invalid-link">${text}</span>`;
+        }
+        if (href.startsWith('#')) {
+            return `<a href="${href}" ${title ? `title="${title}"` : ''}>${text}</a>`;
+        }
         return `<a href="${href}" target="_blank" ${title ? `title="${title}"` : ''}>${text}</a>`;
     },
     text(text: string) {
@@ -24,12 +43,12 @@ export function containsHtml(text: string): boolean {
  */
 export function processMarkdownBlock(text: string): string {
     let html = text
-        .replace(/^# (.*$)/gm, '<h1>$1</h1>')
-        .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-        .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-        .replace(/^#### (.*$)/gm, '<h4>$1</h4>')
-        .replace(/^##### (.*$)/gm, '<h5>$1</h5>')
-        .replace(/^###### (.*$)/gm, '<h6>$1</h6>')
+        .replace(/^# (.*$)/gm, (_, title) => `<h1 id="${generateSlug(title)}">${title}</h1>`)
+        .replace(/^## (.*$)/gm, (_, title) => `<h2 id="${generateSlug(title)}">${title}</h2>`)
+        .replace(/^### (.*$)/gm, (_, title) => `<h3 id="${generateSlug(title)}">${title}</h3>`)
+        .replace(/^#### (.*$)/gm, (_, title) => `<h4 id="${generateSlug(title)}">${title}</h4>`)
+        .replace(/^##### (.*$)/gm, (_, title) => `<h5 id="${generateSlug(title)}">${title}</h5>`)
+        .replace(/^###### (.*$)/gm, (_, title) => `<h6 id="${generateSlug(title)}">${title}</h6>`)
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         .replace(/\*(.*?)\*/g, '<em>$1</em>')
         .replace(/`(.*?)`/g, '<code>$1</code>')
@@ -69,8 +88,16 @@ export function processMarkdownBlock(text: string): string {
         resultHtml += listHtml;
     }
 
-    // Handle links last to avoid conflicts
-    resultHtml = resultHtml.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
+    resultHtml = resultHtml.replace(/\[(.*?)\]\((.*?)\)/g, (_, text, href) => {
+        // Handle empty or invalid href
+        if (!href || href.trim() === '') {
+            return `<span class="invalid-link">${text}</span>`;
+        }
+        if (href.startsWith('#')) {
+            return `<a href="${href}">${text}</a>`;
+        }
+        return `<a href="${href}" target="_blank">${text}</a>`;
+    });
 
     return resultHtml;
 }
