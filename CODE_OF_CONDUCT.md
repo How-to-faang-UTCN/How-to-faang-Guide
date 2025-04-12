@@ -1,0 +1,1 @@
+Try to keep things neutral or objective. This doesn't mean to distort the truth but present it objectively
