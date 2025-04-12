@@ -1,0 +1,1 @@
+If you find a security bug please open an issue, or if you feel courageous, a PR. 
