@@ -26,7 +26,7 @@ If you want CV review, have questions or need any kind of help, feel free to joi
     - [Mandatory motivational speech](#mandatory-motivational-speech)
 - [How to Faang from UTCN](#how-to-faang-from-utcn-or-any-romanian-university)
     - [Application Screening](#application-screening)
-      - [How to have great achievements (By Alexander The Great)](#how-to-have-great-achievements--by-alexander-the-great-and-dogs--)
+      - [How to have great achievements (By Alexander The Great)](#how-to-have-great-achievements-by-alexander-the-great-)
     - [Online Assessments (OA)](#online-assessments-oa)
     - [Interviews (Technical / Behavioral)](#interviews-technical--behavioral)
     - [Receiving the offer (Important)]()
