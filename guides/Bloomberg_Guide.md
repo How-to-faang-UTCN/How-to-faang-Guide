@@ -1,4 +1,4 @@
-# Bloomberg: A Student's Guide 
+# Bloomberg SWE Internship
 > <span style="color:#556B2F; font-weight:bold;">*No matter which company you apply to, acceptance or rejection doesn’t define your worth or abilities.*</span>
     
 ## General Overview

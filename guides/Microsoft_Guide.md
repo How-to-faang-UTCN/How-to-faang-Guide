@@ -1,4 +1,5 @@
-# Microsoft Internship Guide
+# Microsoft SWE Internship 
+
 ## General Overview
 Microsoft is one of the pioneers of technology in the area of software and computing, having created Windows OS, Microsoft Office, Azure core and owns Github, Linkdin, Visual studio just to name a few. Microsoft interns mainly use C# and Dotnet and will get the opportunity to work on Microsoft products suc as Azure core or Teams. The bucharest office focuses solely on Azure core and software adjacent to it. 
 

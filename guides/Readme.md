@@ -1,7 +1,7 @@
 
 <h1 >
   How to FAANG &middot;
-  <a href="https://discord.gg">
+  <a href="https://discord.gg/gtKjtx6J">
     <img
       src="https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHHFT949fUipzkiFOBH3fAiZZUCdYojwUyX2aTonS1aIwMrx6NUIsHfUHSLzjGJFxxsG72wAo9EWJR4yQWyJJaDb6rYcBtJvTvH3UoAS4JFNDaxGhmKNaMwgElLURlRFeVkLCjkfnXmWtINWZIrPGYq0-&format=source"
       alt="Discord"
@@ -268,9 +268,15 @@ them as big tech but with a bit less visibility. However, landing would put you 
 This list can of course be rearranged in various ways and other companies or niches can be included (for example we ommited research oriented organizations like Deepmind, Cern, Max Plank Institute 
 and so on) but for the current state of the guide we will limit ourselves to software.
 
-### Specific companies
+## Additional Resources
 
-We also made specific guides for each of the below companies, with specific info about the hiring process, company overall, how to prepare and what you might expect at all stages of the 
+Here is a curated list of additonal resources which you might find useful
+
+- [ACS internships](https://acsinternships.lsacbucuresti.ro/) 
+  - A similar, more mature resource similar to this repository. Advice is quite generic, some company guides are a bit outdated, but they have many more of them. Overall a great contribution.
+
+
+We also made specific guides for each of the below companies, with specific info about the hiring process, company overall, how to prepare and what you might expect at all stages of the
 hiring process. The information is curated by one or more people who either went through all interviews up to the final one or has an internship/job offer.
 
 - [Microsoft](Microsoft_Guide.md)
@@ -280,9 +286,3 @@ hiring process. The information is curated by one or more people who either went
 - [Jane Street](Jane_Street_Guide.md)
 - [Optiver](Optiver_Guide.md)
 
-## Additional Resources
-
-Here is a curated list of additonal resources which you might find useful
-
-- [ACS internships](https://acsinternships.lsacbucuresti.ro/) 
-  - A similar, more mature resource similar to this repository. Advice is quite generic, some company guides are a bit outdated, but they have many more of them. Overall a great contribution. 
