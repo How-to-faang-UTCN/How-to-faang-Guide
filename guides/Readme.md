@@ -261,8 +261,7 @@ Many of them offer internships and getting into one is oftentimes harder than Bi
 - OpenAI, Anthropic, Lakarta AI, 
 
 **Prestigious but not Big tech** 
-- As good as big tech but without the huge legacy behind them. Some like Bloomberg and Uber pay better than most Big tech companies and largely employ the same hiring practices. You can think of 
-them as big tech but with a bit less visibility. However, landing would put you in a position just as good as working for Google or Microsoft.
+- As good as big tech but without the huge legacy behind them. Some like Bloomberg and Uber pay better than most Big tech companies and largely employ the same hiring practices. You can think of them as big tech but with a bit less visibility. However, landing would put you in a position just as good as working for Google or Microsoft.
 - Adobe, Oracle, Uber, Bloomberg, Palantir, Goldman sachs, Databricks (founded by 2 Romanian guys btw), Stripe.
 
 This list can of course be rearranged in various ways and other companies or niches can be included (for example we ommited research oriented organizations like Deepmind, Cern, Max Plank Institute 
