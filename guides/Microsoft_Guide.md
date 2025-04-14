@@ -38,7 +38,7 @@ cheating, you can basically consider yourself 90% in. There are two problems, on
 and another medium/hard problem. The latter is unusual and involves some out of the box thinking. Some 
 topics for the second problem may include backtracking, mathematical induction, priority queues or dynamic programming. 
 
-The OA platform is Codility and ,unlike other companies, Microsoft allows you to browse the web, 
+The OA platform is Codility and, unlike other companies, Microsoft allows you to browse the web, 
 code in your IDE and so on, with a complete disregard for cheating for some reason. The time to complete
 both problems is 75 minutes.
 
