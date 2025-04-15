@@ -1,4 +1,4 @@
-# Amazon SWE Internship (2025)
+# Amazon SWE Internship 
  
  ## General Overview
  

@@ -1,4 +1,4 @@
-# Jane Street SWE Internship (2025)
+# Jane Street SWE Internship
  
  ## General Overview
  Jane Street is an S-tier quant firm offering SWE internships in their London office.
