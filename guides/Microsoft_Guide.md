@@ -5,11 +5,6 @@ Microsoft is one of the pioneers of technology in the area of software and compu
 
 Microsoft does not provide housing or free food, but does have a very generous relocation package, which you won't be able to spend unless you get a mansion for the summer. 
 
-This guide covers:
-1. How to get a Google STEP / SWE internship
-2. Other internship opportunities
-3. Tips for securing return offers
-
 ### Why Choose Microsoft?
 
 - **Likely to get return offer:** Compared to other companies, Microsoft seems to have a higher return offer rate, meaning that you are very likely to get one at the end of the summer. If you want to become a cloud developer, Microsoft Bucharest might the easiest entry which also has good money.
