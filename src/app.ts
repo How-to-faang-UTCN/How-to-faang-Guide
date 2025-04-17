@@ -15,6 +15,7 @@ class MarkdownViewer {
     private contentContainer: HTMLElement;
     private markdownFiles: string[] = [];
     private basePath: string;
+    private pageLoadTime: number;
 
     constructor() {
         this.tabsContainer = document.getElementById('tabs')!;
@@ -22,7 +23,36 @@ class MarkdownViewer {
         this.basePath = window.location.pathname.endsWith('/')
             ? window.location.pathname.slice(0, -1)
             : window.location.pathname;
+        this.pageLoadTime = Date.now();
         this.init();
+        this.setupAnalytics();
+    }
+
+    private setupAnalytics() {
+        gtag('event', 'page_view', {
+            page_title: document.title,
+            page_location: window.location.href,
+            page_path: window.location.pathname
+        });
+
+        window.addEventListener('beforeunload', () => {
+            const timeSpent = Math.round((Date.now() - this.pageLoadTime) / 1000);
+            gtag('event', 'time_spent', {
+                time_spent_seconds: timeSpent,
+                page_path: window.location.pathname
+            });
+        });
+
+        this.contentContainer.addEventListener('click', (e) => {
+            const target = e.target as HTMLElement;
+            const link = target.closest('a');
+            if (link && link.href && !link.href.startsWith(window.location.origin)) {
+                gtag('event', 'external_link_click', {
+                    link_url: link.href,
+                    link_text: link.textContent?.trim()
+                });
+            }
+        });
     }
 
     private async init() {
@@ -106,7 +136,13 @@ class MarkdownViewer {
             button.className = 'tab-button';
             button.textContent = tabName;
             button.dataset.file = file;
-            button.onclick = () => this.loadContent(file);
+            button.onclick = () => {
+                gtag('event', 'tab_click', {
+                    tab_name: tabName,
+                    file_name: file
+                });
+                this.loadContent(file);
+            };
 
             this.tabsContainer.appendChild(button);
         });
@@ -121,9 +157,19 @@ class MarkdownViewer {
 
             this.contentContainer.innerHTML = renderMarkdown(markdown);
             this.updateActiveTab(filename);
+
+            gtag('event', 'content_load', {
+                file_name: filename,
+                content_length: markdown.length
+            });
         } catch (error) {
             console.error('Error loading content:', error);
             this.showError(`Failed to load content for ${filename}. Please try again later.`);
+
+            gtag('event', 'content_load_error', {
+                file_name: filename,
+                error: error instanceof Error ? error.message : String(error)
+            });
         }
     }
 
