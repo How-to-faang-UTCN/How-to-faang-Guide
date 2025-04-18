@@ -71,9 +71,12 @@ Jokes aside, it is clear the situation right now is not great, but there are way
 
 ## How to Faang from UTCN (or any Romanian university)
 
-Hopefully, now you have a better idea of what FAANG is and why you might want to get in there. If you are 100% decided you want to get in, you can consider yourself halfway there, since having a purpose is the main bottleneck for most people. With that out of the way, let's get into the main stages you will go through.     
+Hopefully, now you have a better idea of what FAANG is and why you might want to get in there. If you are 100% decided you want to get in, you can consider yourself halfway there, since having a purpose is the main bottleneck for most people. With that out of the way, let's get into the main stages you will go through. 
+
 
 ### Application Screening
+
+The first and most important thing most people don't know is that **ALL APPLICATIONS ARE DONE A YEAR BEFORE IN OCTOBER, NOVEMBER AND AT LATEST DECEMBER!!!!**. Do not miss the deadline. For specifics, check each company website, but almost all of them open their internships in october-november. 
 
 Application screening is meant to filter supposedly low-quality candidates, since companies can't afford to interview everyone for obvious reasons. Companies are very averse to false positives (people who are bad that were thought to be good) and would rather reject tons of good engineers alongside the bad ones on the ground that even one bad apple can ruin their team. You can get lots of screening rejections, we all do, and it's a part of the process that should not disappoint you (unless everyone rejected you, then you might have an issue).
 
