@@ -1,7 +1,7 @@
 
 <h1 >
   How to FAANG &middot;
-  <a href="https://discord.gg/gtKjtx6J">
+  <a href="https://discord.gg/JqrhfjgRPs">
     <img
       src="https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHHFT949fUipzkiFOBH3fAiZZUCdYojwUyX2aTonS1aIwMrx6NUIsHfUHSLzjGJFxxsG72wAo9EWJR4yQWyJJaDb6rYcBtJvTvH3UoAS4JFNDaxGhmKNaMwgElLURlRFeVkLCjkfnXmWtINWZIrPGYq0-&format=source"
       alt="Discord"
@@ -17,7 +17,7 @@ This is a full guide on how to get into a **prestigious, well-paid, internationa
 This guide goes through the full process of building and writing a strong CV that passes the screening, solving online assessments, nailing your interviews and finally getting an offer. 
 We present both generic and company-specific info, as well as **recent real-life stories** with both successes and failures and how ridiculous the market can be sometimes. Enjoy.
 
-If you want CV review, have questions or need any kind of help, feel free to join the discord server. 
+If you want CV review, have questions or need any kind of help, feel free to join the [discord server](https://discord.gg/JqrhfjgRPs). If you want to contribute to this resource, feel free to leave a PR of issue [at this repository](https://github.com/How-to-faang-UTCN/How-to-faang-Guide/tree/master/guides).
 
 ## Table of Contents 
 - [Why Faang?](#why-faang)
