@@ -104,67 +104,44 @@ You can take roughly two approaches here and we will start each with its own lit
 
 In the early 1900s, Russian physiologist Ivan Pavlov conducted a series of famous experiments that laid the foundation for our understanding of [conditioned reflexes](https://en.wikipedia.org/wiki/Classical_conditioning). Pavlov's research showed that dogs would start to salivate when they heard a bell if the bell was repeatedly paired with food. The dogs learned to connect the bell with food, causing them to salivate even when no food was present. 
 
-Similarly, humans connect certain ideas with certain outcomes, if they see / hear them in pairs repeatedly, either through personal experience or cultural assimilation. 
-I think everyone at some point of their lives heard about someone they didn't meet personally building a business, going to olympiads, doing research or whatever and had an 
-instant impression about them: "they are successful", "they are smart", "they will have lots of money" and the list goes on. These associations are part of how we understand 
-the world and are necessary, but also exploitable. They can be used to make the recruiter salivate about your potential success when they read your CV exactly as Pavlov's dogs 
-were salivating to the sound of the bell. This will be our first approach in building a strong CV: **Associating ourselves with indicators of success**. These can manifest in several ways:
+Similarly, humans connect certain ideas with certain outcomes, if they see / hear them in pairs repeatedly, either through personal experience or cultural assimilation. I think everyone at some point of their lives heard about someone they didn't meet personally building a business, going to olympiads, doing research or whatever and had an instant impression about them: "they are successful", "they are smart", "they will have lots of money" and the list goes on. These associations are part of how we understand the world and are necessary, but also exploitable. They can be used to make the recruiter salivate about your potential success when they read your CV exactly as Pavlov's dogs were salivating to the sound of the bell. This will be our first approach in building a strong CV: **Associating ourselves with indicators of success**. These can manifest in several ways:
 
 - Previous work experience / internships
 - Olympiads
 - Research 
 - Open source contributions 
 
-For us, work experience (between 1 and 2 years) and olympiads during high school or college worked well and pulled interviews. Obviously, not everyone will see value in the same things, 
-and you are not guaranteed to pass, but if you pick achievements which are recognized broadly enough as success indicators, you are very likely to do well. 
+For us, work experience (between 1 and 2 years) and olympiads during high school or college worked well and pulled interviews. Obviously, not everyone will see value in the same things, and you are not guaranteed to pass, but if you pick achievements which are recognized broadly enough as success indicators, you are very likely to do well. 
+
 However there is a very important trade-off you should be aware of.
 
 **Many of these indicators are useless and will hinder your true growth**.
 
-School grades are the closest example, which despite bringing tons of frustration, are still a formal indicator of success, at least in academia. 
-Another example is work experience. Some people truly grow during their work in the company and become better, while others experience bad management and 
-tight deadlines which hinder any attempt at investing in long term knowledge. This doesn't make work experience and grades inherently bad or useless, but it 
-does make them unproductive in some contexts, despite them bridging validation.
+School grades are the closest example, which despite bringing tons of frustration, are still a formal indicator of success, at least in academia. Another example is work experience. Some people truly grow during their work in the company and become better, while others experience bad management and tight deadlines which hinder any attempt at investing in long term knowledge. This doesn't make work experience and grades inherently bad or useless, but it does make them unproductive in some contexts, despite them bridging validation.
 
-These methods are not exhaustive and some, such as research, allow you enough flexibility to do what you want but in a more prestige-effective context (publishing). That being said, 
-there is also an alternative route, where you can take full initiative and rip off all the validation from the "standard" paths. Here goes our second story.   
+These methods are not exhaustive and some, such as research, allow you enough flexibility to do what you want but in a more prestige-effective context (publishing). That being said, there is also an alternative route, where you can take full initiative and rip off all the validation from the "standard" paths. Here goes our second story.
 
 **Second story:**
 
-Somewhere around 335 BC. [Alexander the Great](https://www.youtube.com/watch?v=RlKJDwViNKs), one of the most successful conquerors of all time encountered 
-[Diogenes](https://www.youtube.com/watch?v=-A3IlRATIsI), a homeless cynic philosopher, who lived in a barrel, defecating, sunbathing and vibing all day long. 
-Alexander deeply admired Diogenes for his uncompromising rejection of material wealth and courage to live by his own values. Alexander asked Diogenes if he
-could do anything for him. Diogenes replied *"Get out of my sunlight"*.  
+Somewhere around 335 BC. [Alexander the Great](https://www.youtube.com/watch?v=RlKJDwViNKs), one of the most successful conquerors of all time encountered [Diogenes](https://www.youtube.com/watch?v=-A3IlRATIsI), a homeless cynic philosopher, who lived in a barrel, defecating, sunbathing and vibing all day long. Alexander deeply admired Diogenes for his uncompromising rejection of material wealth and courage to live by his own values. Alexander asked Diogenes if he could do anything for him. Diogenes replied *"Get out of my sunlight"*.  
 
-When you read this story, you were probably a bit shocked at its presence in a tech guide. And that is because unexpectedness, change and the courage to do something 
-different can leave strong impressions, which we aim to exploit.
+When you read this story, you were probably a bit shocked at its presence in a tech guide. And that is because unexpectedness, change and the courage to do something different can leave strong impressions, which we aim to exploit.
 
-But at this point, you might argue "Yes, but my interviewer won't be Alexander the Great, king of all of Macedonia, how is that relevant?" and you are partly right. 
-If Alexander were to conduct all the tech interviews, we would have taken over the galaxy a long time ago. But he is not, so here we are still doing leetcode problems. 
-Your interviewer is not Alexander, but **he is human** and he is susceptible to **attention grabbing and being impressed by new things**.  In other words: 
+But at this point, you might argue "Yes, but my interviewer won't be Alexander the Great, king of all of Macedonia, how is that relevant?" and you are partly right. If Alexander were to conduct all the tech interviews, we would have taken over the galaxy a long time ago. But he is not, so here we are still doing leetcode problems. Your interviewer is not Alexander, but **he is human** and he is susceptible to **attention grabbing and being impressed by new things**.  In other words: 
 
 **Doing something new and courageous leaves strong impressions, if understood**
 
-That "if understood" at the end is pesky. You have significant chances to meet someone who simply never exited their comfort zone and doesn't appreciate anything else 
-other than standardized metrics. Is there a way to convince these people too? Yes, there is, and if there wasn't, we would find one. What if, let's say, you were to do something new, 
-but **with a context attached to it**? For example, doing a startup can mean a million things. But doing a startup which attracted 10000 users and $5000 in VC funds 
-allows both for the original, courageous part "doing a startup" as well as the benefits of having a success indicator "$5000 in VC and 10000 users". You are essentially 
-combining the best of both worlds. So whatever you are doing, no matter if it is original or standardized, try to think to yourself "How can I ground this thing in understandable indicators?", 
-no matter if they are emotions, or VC funds, users, published research, open source stars and the list goes on. Always keep the connection to reality and have something to ground your success in. 
-For some of us, **startups** which gained about 100-200 sign-ups and between 2000-3000 visits each month (albeit with some active marketing on Reddit) were enough to pass screening. 
+That "if understood" at the end is pesky. You have significant chances to meet someone who simply never exited their comfort zone and doesn't appreciate anything else other than standardized metrics. Is there a way to convince these people too? Yes, there is, and if there wasn't, we would find one. What if, let's say, you were to do something new, but **with a context attached to it**? 
+
+For example, doing a startup can mean a million things. But doing a startup which attracted 10000 users and 5000 dollars in VC funds allows both for the original, courageous part "doing a startup" as well as the benefits of having a success indicator "$5000 in VC and 10000 users". You are essentially combining the best of both worlds. So whatever you are doing, no matter if it is original or standardized, try to think to yourself "How can I ground this thing in understandable indicators?", no matter if they are emotions, or VC funds, users, published research, open source stars and the list goes on. Always keep the connection to reality and have something to ground your success in. For some of us, **startups** which gained about 100-200 sign-ups and between 2000-3000 visits each month (albeit with some active marketing on Reddit) were enough to pass screening. 
 
 ### Online Assessments (OA)
 
-If you successfully passed the screening phase, you are likely to get an online assessment. They are common, but not all companies use them, with some just passing you directly to the interview stage. 
-Online assessments are generally comprised of Leetcode questions (at 90% of the FAANG companies) and sometimes general programming knowledge. 
+If you successfully passed the screening phase, you are likely to get an online assessment. They are common, but not all companies use them, with some just passing you directly to the interview stage. Online assessments are generally comprised of Leetcode questions (at 90% of the FAANG companies) and sometimes general programming knowledge. 
 
-The preparation for OA is similar to the one for the interviews, you simply have to grind algorithms and data structures. We recommend starting with NeetCode's [Blind 75](https://neetcode.io/practice?tab=blind75) 
-as they cover the entire curriculum that might be checked during OAs and then moving to [Blind 150](https://neetcode.io/practice?tab=neetcode150). Afterwards, simply go on leetcode and do 
-randomized problems.
+The preparation for OA is similar to the one for the interviews, you simply have to grind algorithms and data structures. We recommend starting with NeetCode's [Blind 75](https://neetcode.io/practice?tab=blind75) as they cover the entire curriculum that might be checked during OAs and then moving to [Blind 150](https://neetcode.io/practice?tab=neetcode150). Afterwards, simply go on leetcode and do randomized problems.
 
-A good rule of thumb is that if you can complete 90% of leetcode medium problems in under 10 minutes and at least know the solution to 70-80% of leetcode hard problems (implementation takes a lot sometimes), 
-you are well prepared and should be able to pass the OA easily. You can reach this level by solving about 200-300 problems (so Blind 150 and then another 150 problems). Make sure to solve problems of all 
-levels, not only easy ones.
+A good rule of thumb is that if you can complete 90% of leetcode medium problems in under 10 minutes and at least know the solution to 70-80% of leetcode hard problems (implementation takes a lot sometimes), you are well prepared and should be able to pass the OA easily. You can reach this level by solving about 200-300 problems (so Blind 150 and then another 150 problems). Make sure to solve problems of all levels, not only easy ones.
 
 **Preparation Tips:** Before your OA, you should do several things to maximize your chances of performing well. You probably know them from exams already, but we are going to iterate over them again. 
 - Take your OA about 2-4 hours after you wake up. At that point you should have enough "morning energy" to put into your assessment, but not be sleepy.
@@ -243,29 +220,22 @@ self-aware.
 Big prestigious companies centered around software can be classified in a few groups (not exhaustive, nor unique) which are presented below along with their properties. 
 
 **Big tech (FAANG)**
-- These are the classics, considered the most prestigious and engineering heavy software companies on the planet. Generally very well paid, take lots of time and can set your CV for life. They all 
-have their own unique thing, but come at about the same prestige. Most of them are so recognizable that we don't need to mention what they do anymore.
+- These are the classics, considered the most prestigious and engineering heavy software companies on the planet. Generally very well paid, take lots of time and can set your CV for life. They all have their own unique thing, but come at about the same prestige. Most of them are so recognizable that we don't need to mention what they do anymore.
 - Some examples are Meta, Apple, Amazon, Netflix, Google, Microsoft, Nvidia (more recently)
 
 **Quant (hedge funds)**
-- If you thought Big tech pays well, wait until you see these guys. These are the highest paying jobs (and interviews) on the planet at the moment, with salaries reaching about 
-[25k dollars / month](https://www.levels.fyi/companies/jane-street/salaries/software-engineer/locations/london-metro-area?dma=10045) at entry level in Europe, which can be achieved in Big tech only at 
-senior level. They do quantitative trading, basically using high level mathematics to exploit market inneficiencies and price discrepancies. They make so much money that these salaries are 
-peanuts to them.
+- If you thought Big tech pays well, wait until you see these guys. These are the highest paying jobs (and interviews) on the planet at the moment, with salaries reaching about [25k dollars / month](https://www.levels.fyi/companies/jane-street/salaries/software-engineer/locations/london-metro-area?dma=10045) at entry level in Europe, which can be achieved in Big tech only at senior level. They do quantitative trading, basically using high level mathematics to exploit market inneficiencies and price discrepancies. They make so much money that these salaries are peanuts to them.
 - Jane street, Citadel, De shaw, IMC trading, Reinassance technologies, Radix trading, Optiver, Jump trading
 
 **Hot Startups**
-- These are highly successful startups which managed to get large amounts of VC funding and are spearheading current technology along with Big Tech. You might expect to be responsible for larger 
-parts of the systems they are developing and gaining more information than from a normal company. Right now many of them are focused on AI and LLM's but there are others niches nevertheless. 
-Many of them offer internships and getting into one is oftentimes harder than Big Tech, since their interviews are more niched and less predictable. 
+- These are highly successful startups which managed to get large amounts of VC funding and are spearheading current technology along with Big Tech. You might expect to be responsible for larger parts of the systems they are developing and gaining more information than from a normal company. Right now many of them are focused on AI and LLM's but there are others niches nevertheless. Many of them offer internships and getting into one is oftentimes harder than Big Tech, since their interviews are more niched and less predictable. 
 - OpenAI, Anthropic, Lakarta AI, 
 
 **Prestigious but not Big tech** 
 - As good as big tech but without the huge legacy behind them. Some like Bloomberg and Uber pay better than most Big tech companies and largely employ the same hiring practices. You can think of them as big tech but with a bit less visibility. However, landing would put you in a position just as good as working for Google or Microsoft.
 - Adobe, Oracle, Uber, Bloomberg, Palantir, Goldman sachs, Databricks (founded by 2 Romanian guys btw), Stripe.
 
-This list can of course be rearranged in various ways and other companies or niches can be included (for example we ommited research oriented organizations like Deepmind, Cern, Max Plank Institute 
-and so on) but for the current state of the guide we will limit ourselves to software.
+This list can of course be rearranged in various ways and other companies or niches can be included (for example we ommited research oriented organizations like Deepmind, Cern, Max Plank Institute and so on) but for the current state of the guide we will limit ourselves to software.
 
 ## Additional Resources
 
