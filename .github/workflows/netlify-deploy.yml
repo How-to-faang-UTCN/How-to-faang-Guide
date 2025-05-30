@@ -1,0 +1,161 @@
+name: Deploy to Netlify
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: |
+          echo "Checking package.json for ts-loader version"
+          grep -F "ts-loader" package.json || echo "ts-loader not found"
+          npm install
+
+      - name: Run tests
+        run: |
+          echo "Running tests..."
+          npm test
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Verify workflow file integrity
+        run: |
+          WORKFLOW_HASH=$(sha256sum .github/workflows/netlify-deploy.yml | cut -d' ' -f1)
+
+          if [ "$WORKFLOW_HASH" != "${{ secrets.WORKFLOW_HASH }}" ]; then
+            echo "❌ Workflow file has been modified!"
+            exit 1
+          fi
+          echo "✅ Workflow file integrity verified"
+
+      - name: Check PR limit
+        if: github.event_name == 'pull_request'
+        run: |
+          OPEN_PRS=$(gh pr list --state open --json number | jq length)
+          MAX_PRS=10
+
+          if [ "$OPEN_PRS" -gt "$MAX_PRS" ]; then
+            echo "❌ Too many open PRs ($OPEN_PRS). Maximum allowed: $MAX_PRS"
+            exit 1
+          fi
+          echo "✅ PR limit check passed ($OPEN_PRS/$MAX_PRS PRs open)"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: |
+          echo "Checking package.json for ts-loader version"
+          grep -F "ts-loader" package.json || echo "ts-loader not found"
+          npm install
+
+      - name: Generate manifest
+        run: |
+          echo "Generating manifest from guides directory..."
+          node --loader ts-node/esm scripts/generate-manifest.ts
+          echo "Generated manifest content:"
+          cat guides/manifest.json
+
+      - name: Build project with webpack
+        run: |
+          echo "Building project using webpack..."
+          npm run build
+          echo "Build completed. Checking output files:"
+          ls -la dist/
+
+      - name: Prepare deployment files
+        run: |
+          # Use the dist directory directly for deployment
+          echo "Preparing files from dist directory for deployment..."
+
+          # Create a netlify.toml file for configuration that doesn't redirect to guides
+          cat << EOF > dist/netlify.toml
+          # Handle 404s by serving index.html
+          [[redirects]]
+            from = "/*"
+            to = "/index.html"
+            status = 200
+            
+          # Explicitly disable any redirects from root to /guides/
+          [[redirects]]
+            from = "/"
+            to = "/index.html"
+            status = 200
+            force = true
+          EOF
+
+          # Create .nojekyll file to disable Jekyll processing
+          touch dist/.nojekyll
+
+          # Display deployment info
+          if [ "${{ github.event_name }}" == "push" ]; then
+            echo "🚀 Preparing PRODUCTION deployment to Netlify from master branch"
+          else
+            echo "🔍 Preparing PREVIEW deployment to Netlify for PR #${{ github.event.number }}"
+          fi
+
+          # Show deployment structure
+          echo "Deployment directory structure:"
+          find dist -type f | sort
+
+      - name: Check Netlify credentials
+        run: |
+          if [ -n "${{ secrets.NETLIFY_AUTH_TOKEN }}" ]; then
+            echo "✅ NETLIFY_AUTH_TOKEN is set"
+            echo "Token starts with: ${NETLIFY_AUTH_TOKEN:0:4}..."
+          else
+            echo "❌ NETLIFY_AUTH_TOKEN is not set"
+          fi
+
+          if [ -n "${{ secrets.NETLIFY_SITE_ID }}" ]; then
+            echo "✅ NETLIFY_SITE_ID is set"
+            echo "Site ID starts with: ${NETLIFY_SITE_ID:0:4}..."
+          else
+            echo "❌ NETLIFY_SITE_ID is not set"
+          fi
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+
+      - name: Deploy to Netlify
+        id: netlify-deploy
+        run: |
+          # Debug information
+          echo "Event type: ${{ github.event_name }}"
+          echo "Using site ID: ${{ secrets.NETLIFY_SITE_ID }}"
+
+          if [ "${{ github.event_name }}" == "push" ]; then
+            echo "Deploying to production..."
+            netlify deploy --dir=./dist --prod --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --site ${{ secrets.NETLIFY_SITE_ID }}
+          else
+            echo "Deploying preview for PR #${{ github.event.number }}..."
+            netlify deploy --dir=./dist --alias="pr-${{ github.event.number }}" --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --site ${{ secrets.NETLIFY_SITE_ID }}
+          fi
